@@ -3,18 +3,26 @@ const validate = require('./src/utils/shared/functions/validateTypes.js');
 const dataset = require('./src/models/dataSet/DataSet.js')
 const defaultFunction = require('./src/utils/shared/functions/defaultFunctions.js');
 
-exports.dataSet = [];
-exports.dataBaseEntity = [];
+let dataSet = [];
+let dataSetOriginal = [];
+
+exports.getDataSet = function() {
+    return dataSet;
+}
+
+exports.getOriginalData = function() {
+    return dataSetOriginal;
+}
 
 exports.dataSetGenerate = function(data) {
 
     try {
         if (data.length > 0) {
             if (validate.objectInArrayContainsId(data)) {
-                dataSet = [];
-                dataBaseEntity = [];
+                this.dataSet = [];
+                this.dataSetOriginal = [];
                 data.forEach(item => {
-                    dataBaseEntity.push(item);
+                    dataSetOriginal.push(item);
                     dataSet.push(dataset.create(item));
                 })
             }
@@ -25,8 +33,6 @@ exports.dataSetGenerate = function(data) {
         console.error(`\n[${e.type}] - ${e.description}`);
         console.error(`${e.stack}`);
     }
-
-
 }
 
 // //**Example */
@@ -35,5 +41,5 @@ exports.dataSetGenerate = function(data) {
 //     { id: 2, title: 'hey, go to my website', subtitle: 'my website is beautiful', nota: 4 },
 // ]
 // this.dataSetGenerate(request);
-// let response = defaultFunction.sortArrayOfObject(request, 1, 'nota') //1(DESC)!=1(ASC)
+// let response = defaultFunction.sortArrayOfObject(request, 0, 'nota') //1(DESC)!=1(ASC)
 // console.log(response);
