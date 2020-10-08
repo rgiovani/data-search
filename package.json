@@ -1,0 +1,13 @@
+{
+    "name": "lib-search",
+    "version": "1.0.0",
+    "main": "index.js",
+    "author": "rgiovani <ronaldo-giovani07@hotmail.com>",
+    "license": "MIT",
+    "dependencies": {
+        "eslint": "^7.10.0",
+        "natural": "^2.1.5",
+        "prettier": "^2.1.2",
+        "string-similarity": "^4.0.2"
+    }
+}
