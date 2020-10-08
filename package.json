@@ -1,9 +1,17 @@
 {
-    "name": "lib-search",
+    "name": "data-search",
     "version": "1.0.0",
     "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:rgiovani/data-search.git"
+    },
     "author": "rgiovani <ronaldo-giovani07@hotmail.com>",
     "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/rgiovani/data-search/issues"
+    },
+    "homepage": "https://github.com/rgiovani/data-search#readme",
     "dependencies": {
         "eslint": "^7.10.0",
         "natural": "^2.1.5",
