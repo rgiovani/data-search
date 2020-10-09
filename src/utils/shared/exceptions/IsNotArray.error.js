@@ -11,4 +11,5 @@ class IsNotArrayError extends Error {
         this.date = new Date();
     }
 }
+
 module.exports = IsNotArrayError;

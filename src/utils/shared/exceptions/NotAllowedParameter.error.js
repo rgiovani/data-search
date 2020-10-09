@@ -25,4 +25,5 @@ function description(text, param) {
     text = text.concat('.');
     return text;
 }
+
 module.exports = NotAllowedParameterError;

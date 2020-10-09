@@ -12,4 +12,5 @@ class IdNotFoundError extends Error {
         this.date = new Date();
     }
 }
+
 module.exports = IdNotFoundError;

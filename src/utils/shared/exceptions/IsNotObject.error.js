@@ -1,3 +1,5 @@
+const IsNotArrayError = require("./IsNotArray.error");
+
 class IsNotObjectError extends Error {
     constructor(type = "RuntimeError", ...params) {
         super(...params);
@@ -11,4 +13,5 @@ class IsNotObjectError extends Error {
         this.date = new Date();
     }
 }
+
 module.exports = IsNotObjectError;
