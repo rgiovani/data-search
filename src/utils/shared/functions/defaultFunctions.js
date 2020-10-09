@@ -7,14 +7,14 @@ const tokenizer = new natural.WordTokenizer();
 
 /** * This function remove special characters. 
  ** Tokenize(true): Split strings into an array for each word. */
-module.exports.treatString = function(text, tokenize) {
+module.exports.treatString = function(text, tokenize, size) {
     if (typeof text != 'string' && typeof tokenize != 'boolean') {
         throw new NotAllowedParameterError('text', 'string', 'boolean');
     }
     text = this.removeSpecialCharactersInString(text.toLowerCase());
 
     if (tokenize) {
-        return this.removeRedundancyFromStringArray(tokenizer.tokenize(text));
+        return this.removeRedundancyFromStringArray(tokenizer.tokenize(text), size);
     }
 
     return text;
@@ -29,10 +29,10 @@ module.exports.removeSpecialCharactersInString = function(text) {
 }
 
 /** * This function remove duplicate words in array of strings */
-module.exports.removeRedundancyFromStringArray = function(token) {
+module.exports.removeRedundancyFromStringArray = function(token, size) {
     const newToken = [];
     token.forEach(word => {
-        if (!newToken.includes(word.toLowerCase()) && word.length > 2) {
+        if (!newToken.includes(word.toLowerCase()) && word.length > size) {
             newToken.push(word.toString().toLowerCase());
         }
     });

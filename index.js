@@ -21,17 +21,20 @@ let dataset = {
  * This function generates a data set based on an array of objects. **ID field required on each object**.
  * @param newData Array of objects.
  * @param idName Name of the identification field in your objects - \'id\' by default.
+ * @param size Size of the words you want to filter to generate the tags.
  * @param params Name of the attributes on the objects you need to generate the tags.
  * @return Array of objects with an array of tags on each object in the array.
  */
-exports.dataSetGenerate = function(newData, idName, ...params) {
+exports.dataSetGenerate = function(newData, idName, size, ...params) {
+    size = size <= 0 || typeof size != 'number' ? 0 : size - 1;
+    console.log('SIZEEE: ', size)
     idName = typeof idName == 'string' ? idName : 'id';
     dataset.array = [];
     try {
         if (newData.length > 0) {
             if (validate.objectInArrayContainsId(newData)) {
                 newData.forEach(item => {
-                    dataset.array.push(arrayOfObject.create(item, idName, ...params));
+                    dataset.array.push(arrayOfObject.create(item, idName, size, ...params));
                 })
             }
         } else if (!Array.isArray(newData)) {
