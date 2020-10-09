@@ -27,7 +27,6 @@ let dataset = {
  */
 exports.dataSetGenerate = function(newData, idName, size, ...params) {
     size = size <= 0 || typeof size != 'number' ? 0 : size - 1;
-    console.log('SIZEEE: ', size)
     idName = typeof idName == 'string' ? idName : 'id';
     dataset.array = [];
     try {
