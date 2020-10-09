@@ -1,45 +1,46 @@
 const IsNotArrayError = require('./src/utils/shared/exceptions/IsNotArray.error.js');
+const NotAllowedParameterError = require('./src/utils/shared/exceptions/NotAllowedParameter.error.js');
 const validate = require('./src/utils/shared/functions/validateTypes.js');
-const dataset = require('./src/models/dataSet/DataSet.js')
+const arrayOfObject = require('./src/models/dataSet/ArrayOfObject.js')
 const defaultFunction = require('./src/utils/shared/functions/defaultFunctions.js');
 
-let dataSet = [];
-let dataSetOriginal = [];
-
-exports.getDataSet = function() {
-    return dataSet;
+let dataset = {
+    _array: [],
+    get array() {
+        return this._array;
+    },
+    set array(newArray) {
+        if (!Array.isArray(newArray)) {
+            throw new NotAllowedParameterError('newArray', 'array');
+        }
+        this._array = newArray;
+    }
 }
 
-exports.getOriginalData = function() {
-    return dataSetOriginal;
-}
-
-exports.dataSetGenerate = function(data) {
-
+/**
+ * This function generates a data set based on an array of objects. **ID field required on each object**.
+ * @param newData Array of objects.
+ * @param idName Name of the identification field in your objects - \'id\' by default.
+ * @param params Name of the attributes on the objects you need to generate the tags.
+ * @return Array of objects with an array of tags on each object in the array.
+ */
+exports.dataSetGenerate = function(newData, idName, ...params) {
+    idName = typeof idName == 'string' ? idName : 'id';
+    dataset.array = [];
     try {
-        if (data.length > 0) {
-            if (validate.objectInArrayContainsId(data)) {
-                this.dataSet = [];
-                this.dataSetOriginal = [];
-                data.forEach(item => {
-                    dataSetOriginal.push(item);
-                    dataSet.push(dataset.create(item));
+        if (newData.length > 0) {
+            if (validate.objectInArrayContainsId(newData)) {
+                newData.forEach(item => {
+                    dataset.array.push(arrayOfObject.create(item, idName, ...params));
                 })
             }
-        } else if (!Array.isArray(data)) {
+        } else if (!Array.isArray(newData)) {
             throw new IsNotArrayError();
         }
     } catch (e) {
         console.error(`\n[${e.type}] - ${e.description}`);
         console.error(`${e.stack}`);
     }
-}
 
-// //**Example */
-// const request = [
-//     { id: 1, title: 'my new ad', subtitle: 'what do you think of looking?', nota: 3.5 },
-//     { id: 2, title: 'hey, go to my website', subtitle: 'my website is beautiful', nota: 4 },
-// ]
-// this.dataSetGenerate(request);
-// let response = defaultFunction.sortArrayOfObject(request, 0, 'nota') //1(DESC)!=1(ASC)
-// console.log(response);
+    return dataset.array;
+}
