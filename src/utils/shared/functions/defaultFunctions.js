@@ -12,11 +12,9 @@ module.exports.treatString = function(text, tokenize, size) {
         throw new NotAllowedParameterError('text', 'string', 'boolean');
     }
     text = this.removeSpecialCharactersInString(text.toLowerCase());
-
     if (tokenize) {
         return this.removeRedundancyFromStringArray(tokenizer.tokenize(text), size);
     }
-
     return text;
 }
 
