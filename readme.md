@@ -9,4 +9,5 @@ This library uses two others for better results.
 
 **Commands**
 
-npm install data-search
+- npm install data-search
+- yarn add data-search
