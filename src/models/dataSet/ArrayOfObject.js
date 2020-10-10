@@ -4,11 +4,16 @@ const validate = require('../../utils/shared/functions/validateTypes.js');
 let tmpTags = [];
 
 function verifyParam(params, attribute, obj, size, idName) {
-    if (typeof obj[attribute] != 'object') {
+    if (typeof obj[attribute] != 'object' && !Array.isArray(obj[attribute])) {
         params.forEach(paramAtribute => {
             if (attribute.toLowerCase() != idName.toLowerCase() && attribute == paramAtribute) {
                 fillTags(obj[attribute].toString(), obj, size);
             }
+        })
+    } else if (Array.isArray(obj[attribute])) {
+        obj[attribute].forEach(item => {
+            fillTags(item.toString(), obj, size);
+
         })
     }
 }
