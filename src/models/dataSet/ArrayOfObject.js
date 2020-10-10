@@ -3,16 +3,34 @@ const validate = require('../../utils/shared/functions/validateTypes.js');
 
 let tmpTags = [];
 
+function verifyParam(params, attribute, obj, size, idName) {
+    if (typeof obj[attribute] != 'object') {
+        params.forEach(paramAtribute => {
+            if (attribute.toLowerCase() != idName.toLowerCase() && attribute == paramAtribute) {
+                fillTags(obj[attribute].toString(), obj, size);
+            }
+        })
+    }
+}
+
 function isArrayOrObject(obj, attribute, params, idName, size) {
     if (attribute != 'id' && attribute != 'tags') {
         if (typeof obj[attribute] == 'object' && !Array.isArray(obj[attribute])) {
-            Object.keys(obj[attribute]).forEach((attributeObj) => {
-                isString(obj[attribute], attributeObj, params, idName, size);
+            Object.keys(obj[attribute]).forEach((index) => {
+                isString(obj[attribute], index, params, idName, size);
             });
             return true;
-        } else if (typeof obj[attribute] != 'object' && Array.isArray(obj[attribute])) {
-            //TODO percorrer os arrays de dados.
-            return true
+        } else if (Array.isArray(obj[attribute])) {
+            obj[attribute].forEach((index) => {
+                if (typeof index == 'string' && index.toLowerCase() != idName.toLowerCase()) {
+                    verifyParam(params, attribute, obj, size, idName);
+                } else if (typeof index == 'object') {
+                    Object.keys(index).forEach((i) => {
+                        isString(index, i, params, idName, size);
+                    });
+                }
+                return true
+            })
         };
     }
     return false;
@@ -21,13 +39,7 @@ function isArrayOrObject(obj, attribute, params, idName, size) {
 function isString(obj, attribute, params, idName, size) {
     if (attribute != 'id' && attribute != 'tags') {
         if (typeof obj[attribute] == 'string') {
-            params.forEach(paramAtribute => {
-                if (attribute.toLowerCase() != idName.toLowerCase()) {
-                    if (attribute == paramAtribute) {
-                        fillTags(obj[attribute].toString(), obj, size);
-                    }
-                }
-            })
+            verifyParam(params, attribute, obj, size, idName);
             return true;
         } else if (typeof obj[attribute] == 'object') {
             isArrayOrObject(obj, attribute, params, idName, size)
@@ -60,5 +72,4 @@ function fillTags(field, obj, size) {
         }
     });
     return obj;
-
 }
