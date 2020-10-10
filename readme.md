@@ -2,12 +2,11 @@
 This is a library that aims to perform a search for data in an array of objects. The parameter for such a search is a manual search for a user in a search bar.
 This library uses two others for better results.
 
-**Dependencies:**
+**Check the dependencies:**
 
-- NaturalJS: https://www.npmjs.com/package/natural
-- String-Similarity: https://www.npmjs.com/package/string-similarity
+- https://www.npmjs.com/package/data-search
 
 **Commands**
 
 - npm install data-search
-- yarn add data-search
+- yarn add data-search (recommended)
