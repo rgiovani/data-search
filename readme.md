@@ -45,4 +45,5 @@ console.log(result)
 ```
 [ { id: 1, title: 'This is my title', tags: [ 'this', 'title' ] } ]
 ```
-- The result will be an array of objects where, for each object in that array, an attribute called 'tags' will be added, which is an array with the filtered attribute values. These tags will be used by the search functionality.(implementing).
+- The result will be an array of objects where, for each object in that array, an attribute called 'tags' will be added, which is an array with the filtered attribute values. 
+- These tags will be used by the search functionality(implementing).
