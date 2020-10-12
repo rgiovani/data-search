@@ -78,3 +78,10 @@ module.exports.getCurrentTimeString = function() {
     const date = new Date();
     return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
 }
+
+module.exports.verifyParam = function(attribute, param, collectionName) {
+    if (attribute == param || collectionName == param) {
+        return true;
+    }
+    return false;
+}
