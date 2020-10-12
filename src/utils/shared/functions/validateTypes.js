@@ -30,11 +30,50 @@ module.exports.objectInArrayContainsId = function(array) {
 module.exports.attrInObj = function(obj, attr) {
     let contains = false;
     Object.keys(obj).forEach((item) => {
-        if (item == attr.toString()) {
+        if (item.toLowerCase() == attr.toString().toLowerCase()) {
             contains = true;
         }
     });
     if (!contains) {
         throw new Error('The attribute: \'' + attr + '\' does not seem to exist.');
     }
+    return contains;
+}
+
+module.exports.hasAttr = function(obj, attr) {
+    let contains = false;
+    Object.keys(obj).forEach((item) => {
+        if (item == attr.toString()) {
+            contains = true;
+        }
+    });
+    return contains;
+}
+
+module.exports.isObject = function(obj) {
+    if (typeof obj == 'object' && !Array.isArray(obj)) {
+        return true;
+    }
+    return false;
+}
+
+module.exports.isArray = function(array) {
+    if (Array.isArray(array)) {
+        return true;
+    }
+    return false;
+}
+
+module.exports.isStringAndNotId = function(field, idName) {
+    if (typeof field == 'string' && field.toLowerCase() != idName.toLowerCase()) {
+        return true;
+    }
+    return false;
+}
+
+module.exports.isString = function(str) {
+    if (typeof str == 'string') {
+        return true;
+    }
+    return false;
 }

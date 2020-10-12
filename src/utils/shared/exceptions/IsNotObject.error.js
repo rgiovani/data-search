@@ -1,5 +1,3 @@
-const IsNotArrayError = require("./IsNotArray.error");
-
 class IsNotObjectError extends Error {
     constructor(type = "RuntimeError", ...params) {
         super(...params);
