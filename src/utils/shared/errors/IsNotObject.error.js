@@ -1,4 +1,4 @@
-class IsNotObjectError extends Error {
+export default class IsNotObjectError extends Error {
     constructor(type = "RuntimeError", ...params) {
         super(...params);
 
@@ -11,5 +11,3 @@ class IsNotObjectError extends Error {
         this.date = new Date();
     }
 }
-
-module.exports = IsNotObjectError;

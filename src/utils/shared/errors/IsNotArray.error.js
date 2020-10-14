@@ -1,10 +1,9 @@
-class IsNotArrayError extends Error {
+export default class IsNotArrayError extends Error {
     constructor(type = "RuntimeError", ...params) {
         super(...params);
         params = (params.length == 0) ? ['Value'] : params;
 
         params.forEach(item => {
-            console.log(item)
             if (Error.captureStackTrace) {
                 Error.captureStackTrace(this, IsNotArrayError);
             }
@@ -15,5 +14,3 @@ class IsNotArrayError extends Error {
         })
     }
 }
-
-module.exports = IsNotArrayError;

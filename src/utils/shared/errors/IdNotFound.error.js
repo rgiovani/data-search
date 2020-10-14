@@ -1,4 +1,4 @@
-class IdNotFoundError extends Error {
+export default class IdNotFoundError extends Error {
     constructor(type = "RuntimeError", ...params) {
         super(...params);
 
@@ -12,5 +12,3 @@ class IdNotFoundError extends Error {
         this.date = new Date();
     }
 }
-
-module.exports = IdNotFoundError;

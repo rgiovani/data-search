@@ -1,13 +1,14 @@
-const NotAllowedParameterError = require('../exceptions/NotAllowedParameter.error.js');
-const validate = require('./validateTypes.js');
-const stringSimilarity = require('string-similarity');
-const natural = require('natural');
-const tokenizer = new natural.WordTokenizer();
+import NotAllowedParameterError from '../errors/NotAllowedParameter.error.js';
+import stringSimilarity from 'string-similarity';
+import natural from 'natural';
+
+const { WordTokenizer } = natural;
+const tokenizer = new WordTokenizer;
 
 
 /** * This function remove special characters. 
  ** Tokenize(true): Split strings into an array for each word. */
-module.exports.treatString = function(text, tokenize, size) {
+export function treatString(text, tokenize, size) {
     if (typeof text != 'string' && typeof tokenize != 'boolean') {
         throw new NotAllowedParameterError('text', 'string', 'boolean');
     }
@@ -19,7 +20,7 @@ module.exports.treatString = function(text, tokenize, size) {
 }
 
 /** * This function remove special characters from string*/
-module.exports.removeSpecialCharactersInString = function(text) {
+export function removeSpecialCharactersInString(text) {
     text = text.replace('ç', 'c').replace('ê', 'e')
         .replace('é', 'e').replace('á', 'a')
         .replace('ã', 'a').replace('â', 'a');
@@ -27,7 +28,7 @@ module.exports.removeSpecialCharactersInString = function(text) {
 }
 
 /** * This function remove duplicate words in array of strings */
-module.exports.removeRedundancyFromStringArray = function(token, size) {
+export function removeRedundancyFromStringArray(token, size) {
     const newToken = [];
     token.forEach(word => {
         if (!newToken.includes(word.toLowerCase()) && word.length > size) {
@@ -38,9 +39,9 @@ module.exports.removeRedundancyFromStringArray = function(token, size) {
 }
 
 //** This function to compare two strings based on the similar value between them * /
-module.exports.similarStrings = function(text, tags, similarValue) {
+export function similarStrings(text, tags, similarValue) {
     tags = removeRedundancyFromStringArray(tags);
-    const matches = stringSimilarity.findBestMatch(text, tags);
+    const matches = findBestMatch(text, tags);
     for (const i in matches.ratings) {
         if (matches.ratings[i].rating > similarValue) {
             return true;
@@ -50,16 +51,16 @@ module.exports.similarStrings = function(text, tags, similarValue) {
 }
 
 //** This function make plural strings become singular */
-module.exports.makeStringSingular = function(word) {
-    const verbInflector = new natural.PresentVerbInflector();
+export function makeStringSingular(word) {
+    const verbInflector = new PresentVerbInflector();
     verbInflector.pluralize(word);
 }
 
 //** This function orders a object array*/
-module.exports.sortArrayOfObject = function(array, sort, attr) {
+export function sortArrayOfObject(array, sort, attr) {
     try {
         array.forEach(obj => {
-            validate.attrInObj(obj, attr);
+            hasAttrFilter(obj, attr);
         })
         let response;
         if (sort == 1) {
@@ -74,14 +75,34 @@ module.exports.sortArrayOfObject = function(array, sort, attr) {
 }
 
 //** This function returns the current system time in string format*/
-module.exports.getCurrentTimeString = function() {
+export function getCurrentTimeString() {
     const date = new Date();
     return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
 }
 
-module.exports.verifyParam = function(attribute, param, collectionName) {
+//** This function checks if the attribute is the same as the one requested*/
+export function verifyParam(attribute, param, collectionName) {
     if (attribute == param || collectionName == param) {
         return true;
     }
     return false;
+}
+
+
+//** This function throws an Error if the attribute was not found */
+export function hasAttrFilter(obj, attr) {
+    if (!hasAttr(obj, attr)) throw new Error('The attribute: \'' + attr + '\' does not seem to exist.');
+
+    return true;
+}
+
+//** This function just return false if attribute was not found */
+export function hasAttr(obj, attr) {
+    let contains = false
+    Object.keys(obj).forEach((item) => {
+        if (item == attr) {
+            contains = true;
+        }
+    });
+    return contains;
 }

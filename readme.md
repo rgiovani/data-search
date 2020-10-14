@@ -29,21 +29,31 @@ const data = require('data-search');
 
 const myArray = [{
     id: 1,
-    title: 'This is my title',
+    title: 'Lorem ipsum dolor sit amet.',
+    card: {
+        description: 'Nullam sollicitudin justo.'
+    }
 }]
 
-const result = data.dataSetGenerate({
+const result = dataSetGenerate({
     array: myArray,
-    wordSize: 2,
+    wordSize: 6,
     nameId: 'id',
-    attributes: ['title']
+    attributes: ['title', 'description']
 })
 
 console.log(result)
 ``` 
 > result:
 ```
-[ { id: 1, title: 'This is my title', tags: [ 'this', 'title' ] } ]
+[
+  {
+    id: 1,
+    title: 'Lorem ipsum dolor sit amet.',
+    card: { description: 'Nullam sollicitudin justo.' },
+    tags: [ 'nullam', 'sollicitudin' ]
+  }
+]
 ```
 - The result will be an array of objects where, for each object in that array, an attribute called 'tags' will be added, which is an array with the filtered attribute values. 
 - These tags will be used by the search functionality(implementing).

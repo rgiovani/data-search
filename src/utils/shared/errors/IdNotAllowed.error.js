@@ -1,4 +1,4 @@
-class IdNotAllowedError extends Error {
+export default class IdNotAllowedError extends Error {
     constructor(type = "RuntimeError", ...params) {
         super(...params);
 
@@ -12,5 +12,3 @@ class IdNotAllowedError extends Error {
         this.date = new Date();
     }
 }
-
-module.exports = IdNotAllowedError;
