@@ -1,5 +1,6 @@
 import * as defaultFunctions from '../../utils/shared/functions/defaultFunctions.js';
 import * as validateIf from '../../utils/shared/functions/validateTypes.js';
+import { collection } from './ArrayOfObject.js';
 import { identifyTags } from './tags.js';
 
 export function getContentFromArray(obj, attribute, params, idName, size) {
@@ -7,8 +8,10 @@ export function getContentFromArray(obj, attribute, params, idName, size) {
         if (validateIf.isStringAndNotId(index, idName)) {
             identifyTags(params, attribute, obj, size, idName);
         } else if (validateIf.isObject(index)) {
+
             Object.keys(index).forEach((i) => {
-                getContentFromString(index, i, params, idName, size);
+                if (i == collection.name)
+                    getContentFromString(index, i, params, idName, size);
             });
         } else if (validateIf.isArray(obj[attribute])) {
             obj[attribute].forEach(item => {
@@ -32,7 +35,9 @@ export function getContentFromObject(obj, attribute, params, idName, size) {
                 })
             });
         } else if (validateIf.isArray(obj[attribute])) {
-            getContentFromArray(obj, attribute, params, idName, size)
+            if (attribute == collection.name) {
+                getContentFromArray(obj, attribute, params, idName, size)
+            }
         };
     }
     return obj[attribute];

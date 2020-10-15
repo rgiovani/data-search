@@ -1,4 +1,4 @@
-import { getContentFromArray, getContentFromString } from './checkAttributeTypes.js';
+import { getContentFromArray, getContentFromString } from './getValuesFromTypes.js';
 import { isObject, isArray, isString } from '../../utils/shared/functions/validateTypes.js';
 import { collection } from './ArrayOfObject.js';
 
@@ -10,15 +10,15 @@ function insideMainAtributes(obj, attribute, idName, size, params) {
     if (attribute != 'id' && attribute != 'tags') {
         if (typeof obj[attribute] == 'object') {
             changeCollectionName(attribute);
+            getContentFromString(obj, attribute, params, idName, size);
         }
-        getContentFromString(obj, attribute, params, idName, size);
     }
 
     return obj[attribute];
 
 }
 
-function mainAttributes(obj, attribute, idName, size, params) {
+export function mainAttributes(obj, attribute, idName, size, params) {
     params.forEach(mainAtribute => {
         if (mainAtribute == attribute) {
             if (isObject(obj[attribute])) {
@@ -36,6 +36,3 @@ function mainAttributes(obj, attribute, idName, size, params) {
     })
     return obj;
 }
-
-const _mainAttributes = mainAttributes;
-export { _mainAttributes as mainAttributes };
