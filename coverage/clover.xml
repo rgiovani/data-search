@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1602857174101" clover="3.2.0">
+  <project timestamp="1602857174101" name="All files">
+    <metrics statements="231" coveredstatements="113" conditionals="164" coveredconditionals="78" methods="56" coveredmethods="34" elements="451" coveredelements="225" complexity="0" loc="231" ncloc="231" packages="3" files="13" classes="13"/>
+    <package name="main.dataSet">
+      <metrics statements="81" coveredstatements="81" conditionals="64" coveredconditionals="55" methods="23" coveredmethods="23"/>
+      <file name="create.js" path="C:\Users\Giovani\Desktop\nodejs apps\search-lib\data-search\src\main\dataSet\create.js">
+        <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="6" coveredmethods="6"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="6" count="37" type="stmt"/>
+        <line num="9" count="8" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="16" count="9" type="stmt"/>
+        <line num="19" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="8" type="stmt"/>
+        <line num="25" count="8" type="stmt"/>
+        <line num="26" count="40" type="stmt"/>
+        <line num="28" count="8" type="stmt"/>
+        <line num="29" count="8" type="stmt"/>
+        <line num="30" count="8" type="stmt"/>
+      </file>
+      <file name="getValuesFromTypes.js" path="C:\Users\Giovani\Desktop\nodejs apps\search-lib\data-search\src\main\dataSet\getValuesFromTypes.js">
+        <metrics statements="38" coveredstatements="38" conditionals="34" coveredconditionals="29" methods="9" coveredmethods="9"/>
+        <line num="8" count="24" type="stmt"/>
+        <line num="9" count="56" type="cond" truecount="4" falsecount="0"/>
+        <line num="10" count="4" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="12" count="52" type="cond" truecount="2" falsecount="0"/>
+        <line num="13" count="8" type="stmt"/>
+        <line num="14" count="8" type="stmt"/>
+        <line num="16" count="44" type="cond" truecount="1" falsecount="1"/>
+        <line num="18" count="44" type="stmt"/>
+        <line num="19" count="102" type="stmt"/>
+        <line num="20" count="2732" type="stmt"/>
+        <line num="21" count="2732" type="stmt"/>
+        <line num="26" count="24" type="stmt"/>
+        <line num="31" count="16" type="cond" truecount="3" falsecount="1"/>
+        <line num="32" count="16" type="cond" truecount="1" falsecount="1"/>
+        <line num="33" count="16" type="stmt"/>
+        <line num="34" count="40" type="stmt"/>
+        <line num="35" count="40" type="cond" truecount="2" falsecount="0"/>
+        <line num="36" count="4" type="stmt"/>
+        <line num="37" count="4" type="stmt"/>
+        <line num="39" count="36" type="cond" truecount="2" falsecount="0"/>
+        <line num="40" count="7" type="stmt"/>
+        <line num="41" count="7" type="stmt"/>
+        <line num="42" count="29" type="cond" truecount="2" falsecount="0"/>
+        <line num="43" count="15" type="stmt"/>
+        <line num="44" count="15" type="stmt"/>
+        <line num="50" count="16" type="stmt"/>
+        <line num="55" count="2761" type="cond" truecount="3" falsecount="1"/>
+        <line num="56" count="2761" type="cond" truecount="2" falsecount="0"/>
+        <line num="58" count="2744" type="cond" truecount="4" falsecount="0"/>
+        <line num="59" count="4" type="stmt"/>
+        <line num="60" count="2744" type="stmt"/>
+        <line num="62" count="17" type="cond" truecount="2" falsecount="0"/>
+        <line num="63" count="9" type="stmt"/>
+        <line num="64" count="8" type="cond" truecount="1" falsecount="1"/>
+        <line num="65" count="8" type="stmt"/>
+        <line num="67" count="17" type="stmt"/>
+        <line num="70" count="2761" type="stmt"/>
+      </file>
+      <file name="tags.js" path="C:\Users\Giovani\Desktop\nodejs apps\search-lib\data-search\src\main\dataSet\tags.js">
+        <metrics statements="15" coveredstatements="15" conditionals="14" coveredconditionals="11" methods="5" coveredmethods="5"/>
+        <line num="6" count="12" type="stmt"/>
+        <line num="7" count="12" type="stmt"/>
+        <line num="8" count="17" type="cond" truecount="4" falsecount="0"/>
+        <line num="9" count="12" type="stmt"/>
+        <line num="15" count="8" type="stmt"/>
+        <line num="16" count="8" type="cond" truecount="1" falsecount="1"/>
+        <line num="17" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="19" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="20" count="4" type="stmt"/>
+        <line num="22" count="4" type="stmt"/>
+        <line num="24" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="25" count="4" type="stmt"/>
+        <line num="26" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="29" count="4" type="stmt"/>
+        <line num="35" count="8" type="stmt"/>
+      </file>
+      <file name="verifyAtribute.js" path="C:\Users\Giovani\Desktop\nodejs apps\search-lib\data-search\src\main\dataSet\verifyAtribute.js">
+        <metrics statements="16" coveredstatements="16" conditionals="14" coveredconditionals="13" methods="3" coveredmethods="3"/>
+        <line num="6" count="36" type="cond" truecount="4" falsecount="0"/>
+        <line num="7" count="20" type="cond" truecount="2" falsecount="0"/>
+        <line num="9" count="14" type="stmt"/>
+        <line num="13" count="36" type="stmt"/>
+        <line num="18" count="40" type="stmt"/>
+        <line num="19" count="40" type="cond" truecount="2" falsecount="0"/>
+        <line num="20" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="30" count="36" type="stmt"/>
+        <line num="33" count="40" type="stmt"/>
+      </file>
+    </package>
+    <package name="utils.shared.errors">
+      <metrics statements="58" coveredstatements="0" conditionals="26" coveredconditionals="0" methods="9" coveredmethods="0"/>
+      <file name="IdNotAllowed.error.js" path="C:\Users\Giovani\Desktop\nodejs apps\search-lib\data-search\src\utils\shared\errors\IdNotAllowed.error.js">
+        <metrics statements="7" coveredstatements="0" conditionals="3" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="5" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+      </file>
+      <file name="IdNotFound.error.js" path="C:\Users\Giovani\Desktop\nodejs apps\search-lib\data-search\src\utils\shared\errors\IdNotFound.error.js">
+        <metrics statements="7" coveredstatements="0" conditionals="3" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="5" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+      </file>
+      <file name="IsNotArray.error.js" path="C:\Users\Giovani\Desktop\nodejs apps\search-lib\data-search\src\utils\shared\errors\IsNotArray.error.js">
+        <metrics statements="9" coveredstatements="0" conditionals="5" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="4" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+      </file>
+      <file name="IsNotNumber.error.js" path="C:\Users\Giovani\Desktop\nodejs apps\search-lib\data-search\src\utils\shared\errors\IsNotNumber.error.js">
+        <metrics statements="7" coveredstatements="0" conditionals="3" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="5" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+      </file>
+      <file name="IsNotObject.error.js" path="C:\Users\Giovani\Desktop\nodejs apps\search-lib\data-search\src\utils\shared\errors\IsNotObject.error.js">
+        <metrics statements="7" coveredstatements="0" conditionals="3" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="5" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+      </file>
+      <file name="IsNotString.error.js" path="C:\Users\Giovani\Desktop\nodejs apps\search-lib\data-search\src\utils\shared\errors\IsNotString.error.js">
+        <metrics statements="7" coveredstatements="0" conditionals="3" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="5" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+      </file>
+      <file name="NotAllowedParameter.error.js" path="C:\Users\Giovani\Desktop\nodejs apps\search-lib\data-search\src\utils\shared\errors\NotAllowedParameter.error.js">
+        <metrics statements="14" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="5" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="utils.shared.functions">
+      <metrics statements="92" coveredstatements="32" conditionals="74" coveredconditionals="23" methods="24" coveredmethods="11"/>
+      <file name="defaultFunctions.js" path="C:\Users\Giovani\Desktop\nodejs apps\search-lib\data-search\src\utils\shared\functions\defaultFunctions.js">
+        <metrics statements="48" coveredstatements="20" conditionals="28" coveredconditionals="11" methods="17" coveredmethods="7"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="12" count="12" type="cond" truecount="2" falsecount="2"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="15" count="12" type="stmt"/>
+        <line num="16" count="12" type="cond" truecount="1" falsecount="1"/>
+        <line num="17" count="12" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="24" count="12" type="stmt"/>
+        <line num="27" count="12" type="stmt"/>
+        <line num="32" count="12" type="stmt"/>
+        <line num="33" count="12" type="stmt"/>
+        <line num="34" count="67" type="cond" truecount="4" falsecount="0"/>
+        <line num="35" count="17" type="stmt"/>
+        <line num="38" count="12" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="46" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="66" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="67" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="69" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="73" count="0" type="stmt"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="80" count="0" type="stmt"/>
+        <line num="85" count="8" type="cond" truecount="2" falsecount="2"/>
+        <line num="86" count="8" type="stmt"/>
+        <line num="88" count="0" type="stmt"/>
+        <line num="92" count="2792" type="stmt"/>
+        <line num="93" count="2792" type="stmt"/>
+        <line num="94" count="2792" type="cond" truecount="2" falsecount="0"/>
+        <line num="95" count="8" type="stmt"/>
+        <line num="98" count="2792" type="stmt"/>
+        <line num="104" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="106" count="0" type="stmt"/>
+        <line num="111" count="0" type="stmt"/>
+        <line num="112" count="0" type="stmt"/>
+        <line num="113" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="114" count="0" type="stmt"/>
+        <line num="117" count="0" type="stmt"/>
+      </file>
+      <file name="validateTypes.js" path="C:\Users\Giovani\Desktop\nodejs apps\search-lib\data-search\src\utils\shared\functions\validateTypes.js">
+        <metrics statements="44" coveredstatements="12" conditionals="46" coveredconditionals="12" methods="7" coveredmethods="4"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="20" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="23" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="35" count="125" type="cond" truecount="4" falsecount="0"/>
+        <line num="36" count="41" type="stmt"/>
+        <line num="38" count="84" type="stmt"/>
+        <line num="42" count="88" type="cond" truecount="2" falsecount="0"/>
+        <line num="43" count="72" type="stmt"/>
+        <line num="45" count="16" type="stmt"/>
+        <line num="49" count="60" type="cond" truecount="4" falsecount="0"/>
+        <line num="50" count="52" type="stmt"/>
+        <line num="52" count="8" type="stmt"/>
+        <line num="56" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="57" count="10" type="stmt"/>
+        <line num="59" count="2" type="stmt"/>
+        <line num="63" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="66" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="67" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="72" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="73" count="0" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="83" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="86" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="87" count="0" type="stmt"/>
+        <line num="89" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="90" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="91" count="0" type="stmt"/>
+        <line num="93" count="0" type="cond" truecount="0" falsecount="4"/>
+      </file>
+    </package>
+  </project>
+</coverage>

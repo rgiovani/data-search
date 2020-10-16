@@ -1,7 +1,7 @@
 import IsNotArrayError from './src/utils/shared/errors/IsNotArray.error.js';
 import NotAllowedParameterError from './src/utils/shared/errors/NotAllowedParameter.error.js';
 import { initializeVariables, isObject, objectInArrayContainsId } from './src/utils/shared/functions/validateTypes.js';
-import { create } from './src/main/dataSet/ArrayOfObject.js';
+import { create } from './src/main/dataSet/create.js';
 import IsNotObjectError from './src/utils/shared/errors/IsNotObject.error.js';
 
 let dataset = {
@@ -16,7 +16,6 @@ let dataset = {
         this._array = newArray;
     }
 }
-
 
 /**
  * This function generates a data set based on an array of objects. **ID field required on each object**.

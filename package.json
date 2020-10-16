@@ -15,12 +15,18 @@
     "homepage": "https://github.com/rgiovani/data-search#readme",
     "dependencies": {
         "eslint": "^7.10.0",
+        "jest": "^26.5.3",
         "natural": "^2.1.5",
         "nodemon": "^2.0.5",
         "prettier": "^2.1.2",
         "string-similarity": "^4.0.2"
     },
     "scripts": {
-        "start": "nodemon index.js"
+        "start": "nodemon index.js",
+        "test": "jest",
+        "test:cov": "jest --coverage"
+    },
+    "devDependencies": {
+        "@babel/preset-env": "^7.12.0"
     }
 }

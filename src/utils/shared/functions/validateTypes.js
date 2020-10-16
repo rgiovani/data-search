@@ -67,10 +67,15 @@ function validateArrays(mainObj) {
     if (!Array.isArray(mainObj.attributes)) {
         throw new IsNotArrayError('RuntimeError', 'Field attribute');
     }
-    mainObj.attributes.forEach(str => {
-        if (!isString(str))
+
+    for (let i = 0; i < mainObj.attributes.length; i++) {
+        if (!isString(mainObj.attributes[i]))
             throw new IsNotStringError('RuntimeError', 'attributes');
-    })
+        else {
+            mainObj.attributes[i] = mainObj.attributes[i].toLowerCase();
+        }
+    }
+
     return mainObj;
 }
 
@@ -82,11 +87,10 @@ export function initializeVariables(mainObj) {
             throw new IsNotStringError('RuntimeError', 'nameId');
         }
         mainObj.nameId = typeof mainObj.nameId == 'string' ? mainObj.nameId : 'id';
-
         if (mainObj.wordSize && typeof mainObj.wordSize != 'number') {
             throw new IsNotNumberError('RuntimeError', 'wordSize');
         }
-        mainObj.wordSize = mainObj.wordSize <= 0 ? 0 : mainObj.wordSize - 1;
+        mainObj.wordSize = mainObj.wordSize <= 0 || !mainObj.wordSize ? 0 : mainObj.wordSize - 1;
     };
 
 

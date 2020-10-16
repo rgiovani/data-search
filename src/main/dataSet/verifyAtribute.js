@@ -1,15 +1,11 @@
 import { getContentFromArray, getContentFromString } from './getValuesFromTypes.js';
 import { isObject, isArray, isString } from '../../utils/shared/functions/validateTypes.js';
-import { collection } from './ArrayOfObject.js';
-
-function changeCollectionName(atr) {
-    collection.name = (!collection.name) ? atr : collection.name;
-}
+import { collection } from './create.js';
 
 function insideMainAtributes(obj, attribute, idName, size, params) {
     if (attribute != 'id' && attribute != 'tags') {
         if (typeof obj[attribute] == 'object') {
-            changeCollectionName(attribute);
+            // collection.verify(attribute, params);
             getContentFromString(obj, attribute, params, idName, size);
         }
     }
@@ -20,12 +16,12 @@ function insideMainAtributes(obj, attribute, idName, size, params) {
 
 export function mainAttributes(obj, attribute, idName, size, params) {
     params.forEach(mainAtribute => {
-        if (mainAtribute == attribute) {
+        if (mainAtribute == attribute.toLowerCase()) {
             if (isObject(obj[attribute])) {
-                changeCollectionName(mainAtribute);
+                collection.name = mainAtribute;
                 getContentFromString(obj, attribute, params, idName, size)
             } else if (isArray(obj[attribute])) {
-                changeCollectionName(mainAtribute);
+                collection.name = mainAtribute;
                 getContentFromArray(obj, attribute, params, idName, size);
             } else if (isString(obj[attribute])) {
                 getContentFromString(obj, attribute, params, idName, size);

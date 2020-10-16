@@ -12,9 +12,9 @@ export function treatString(text, tokenize, size) {
     if (typeof text != 'string' && typeof tokenize != 'boolean') {
         throw new NotAllowedParameterError('text', 'string', 'boolean');
     }
-    text = this.removeSpecialCharactersInString(text.toLowerCase());
+    text = removeSpecialCharactersInString(text.toLowerCase());
     if (tokenize) {
-        return this.removeRedundancyFromStringArray(tokenizer.tokenize(text), size);
+        return removeRedundancyFromStringArray(tokenizer.tokenize(text), size);
     }
     return text;
 }
@@ -82,10 +82,20 @@ export function getCurrentTimeString() {
 
 //** This function checks if the attribute is the same as the one requested*/
 export function verifyParam(attribute, param, collectionName) {
-    if (attribute == param || collectionName == param) {
+    if (attribute.toLowerCase() == param || collectionName == param) {
         return true;
     }
     return false;
+}
+
+export function equalsParam(attribute, params) {
+    let contains = false
+    params.forEach(param => {
+        if (attribute.toLowerCase() == param) {
+            contains = true;
+        }
+    })
+    return contains;
 }
 
 

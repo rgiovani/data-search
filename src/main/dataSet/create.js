@@ -16,7 +16,7 @@ export const collection = {
         return this._name;
     },
     set name(name) {
-        this._name = name;
+        this._name = (name) ? name : this._name;
     }
 };
 
