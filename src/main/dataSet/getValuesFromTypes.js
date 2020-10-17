@@ -14,7 +14,6 @@ export function getContentFromArray(obj, attribute, params, idName, size) {
                 getContentFromString(index, word, params, idName, size);
             });
         } else if (isArray(obj[attribute])) {
-            //collection.verify(attribute.toLowerCase(), params);
             obj[attribute].forEach(item => {
                 Object.keys(item).forEach((i) => {
                     checkpoint = attribute;

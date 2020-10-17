@@ -6,7 +6,7 @@ export default class NotAllowedParameterError extends Error {
             Error.captureStackTrace(this, NotAllowedParameterError);
         }
         this.name = 'NOT_ALLOWED_PARAMETER_ERROR';
-        this.description = description(`${field} cannot be null, undefined or different from type `, params);
+        this.description = description(`${field} cannot be null, undefined or different from `, params, `type`);
 
         this.type = 'RuntimeError';
         this.date = new Date();

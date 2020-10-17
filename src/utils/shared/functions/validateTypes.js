@@ -27,7 +27,6 @@ export function objectInArrayContainsId(array) {
         return array;
     } catch (e) {
         console.error(`\n[${e.type}] - ${e.description}`);
-        console.error(`${e.stack}`);
     }
 }
 
@@ -61,16 +60,16 @@ export function isString(str) {
 
 function validateArrays(mainObj) {
     if (!Array.isArray(mainObj.array)) {
-        throw new IsNotArrayError('RuntimeError', 'Field array');
+        throw new IsNotArrayError('main.array');
     }
     mainObj.attributes = (!hasAttr(mainObj, 'attributes')) ? [] : mainObj.attributes;
     if (!Array.isArray(mainObj.attributes)) {
-        throw new IsNotArrayError('RuntimeError', 'Field attribute');
+        throw new IsNotArrayError('main.attribute');
     }
 
     for (let i = 0; i < mainObj.attributes.length; i++) {
         if (!isString(mainObj.attributes[i]))
-            throw new IsNotStringError('RuntimeError', 'attributes');
+            throw new IsNotStringError('attributes[' + i + ']');
         else {
             mainObj.attributes[i] = mainObj.attributes[i].toLowerCase();
         }
@@ -84,14 +83,16 @@ export function initializeVariables(mainObj) {
         mainObj = validateArrays(mainObj);
 
         if (mainObj.nameId && typeof mainObj.nameId != 'string') {
-            throw new IsNotStringError('RuntimeError', 'nameId');
+            throw new IsNotStringError('nameId');
         }
         mainObj.nameId = typeof mainObj.nameId == 'string' ? mainObj.nameId : 'id';
+
         if (mainObj.wordSize && typeof mainObj.wordSize != 'number') {
-            throw new IsNotNumberError('RuntimeError', 'wordSize');
+            throw new IsNotNumberError('wordSize');
         }
+
         mainObj.wordSize = mainObj.wordSize <= 0 || !mainObj.wordSize ? 0 : mainObj.wordSize - 1;
     };
 
-
+    return mainObj;
 }

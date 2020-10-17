@@ -1,14 +1,14 @@
 export default class IdNotAllowedError extends Error {
-    constructor(type = "RuntimeError", ...params) {
-        super(...params);
+    constructor(attribute = "ID") {
+        super(attribute);
 
         if (Error.captureStackTrace) {
             Error.captureStackTrace(this, IdNotAllowedError);
         }
 
         this.name = 'ID_NOT_ALLOWED_ERROR';
-        this.description = 'ID cannot be null, undefined or different from type string or number.';
-        this.type = type;
+        this.description = `${attribute} cannot be null, undefined or different from string or number type.`;
+        this.type = 'RuntimeError';
         this.date = new Date();
     }
 }

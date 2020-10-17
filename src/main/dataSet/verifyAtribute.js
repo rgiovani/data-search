@@ -5,7 +5,6 @@ import { collection } from './create.js';
 function insideMainAtributes(obj, attribute, idName, size, params) {
     if (attribute != 'id' && attribute != 'tags') {
         if (typeof obj[attribute] == 'object') {
-            // collection.verify(attribute, params);
             getContentFromString(obj, attribute, params, idName, size);
         }
     }

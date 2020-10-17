@@ -9,14 +9,18 @@ const tokenizer = new WordTokenizer;
 /** * This function remove special characters. 
  ** Tokenize(true): Split strings into an array for each word. */
 export function treatString(text, tokenize, size) {
-    if (typeof text != 'string' && typeof tokenize != 'boolean') {
-        throw new NotAllowedParameterError('text', 'string', 'boolean');
+    try {
+        if (typeof text != 'string' && typeof tokenize != 'boolean') {
+            throw new NotAllowedParameterError('text', 'string', 'boolean');
+        }
+        text = removeSpecialCharactersInString(text.toLowerCase());
+        if (tokenize) {
+            return removeRedundancyFromStringArray(tokenizer.tokenize(text), size);
+        }
+        return text;
+    } catch (e) {
+        console.error(`\n[${e.type}] - ${e.description}`);
     }
-    text = removeSpecialCharactersInString(text.toLowerCase());
-    if (tokenize) {
-        return removeRedundancyFromStringArray(tokenizer.tokenize(text), size);
-    }
-    return text;
 }
 
 /** * This function remove special characters from string*/
@@ -70,7 +74,7 @@ export function sortArrayOfObject(array, sort, attr) {
         }
         return response;
     } catch (e) {
-        console.error(e.stack)
+        console.error(e.message)
     }
 }
 

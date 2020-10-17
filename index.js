@@ -1,19 +1,22 @@
-import IsNotArrayError from './src/utils/shared/errors/IsNotArray.error.js';
 import NotAllowedParameterError from './src/utils/shared/errors/NotAllowedParameter.error.js';
 import { initializeVariables, isObject, objectInArrayContainsId } from './src/utils/shared/functions/validateTypes.js';
 import { create } from './src/main/dataSet/create.js';
 import IsNotObjectError from './src/utils/shared/errors/IsNotObject.error.js';
 
-let dataset = {
+export let dataset = {
     _array: [],
     get array() {
         return this._array;
     },
     set array(newArray) {
-        if (!Array.isArray(newArray)) {
-            throw new NotAllowedParameterError('newArray', 'array');
+        try {
+            if (!Array.isArray(newArray)) {
+                throw new NotAllowedParameterError('newArray', 'array');
+            }
+            this._array = newArray;
+        } catch (e) {
+            console.error(`\n[${e.type}] - ${e.description}`);
         }
-        this._array = newArray;
     }
 }
 
@@ -27,30 +30,32 @@ let dataset = {
  * @return Array of objects with an array of tags on each object in the array.
  */
 export function dataSetGenerate(main) {
-    if (!isObject(main)) {
-        throw new IsNotObjectError('RuntimeError', 'object')
+    try {
+        if (!isObject(main)) {
+            throw new IsNotObjectError('main')
+        }
+
+        return generate(main);
+    } catch (e) {
+        console.error(`\n[${e.type}] - ${e.description}`);
     }
-    return generate(main);
 }
 
 function generate(main) {
     try {
         initializeVariables(main);
         dataset.array = [];
-        if (!Array.isArray(main.array)) {
-            throw new IsNotArrayError('RuntimeError', 'Field array');
-        } else {
-            if (main.array.length > 0 && objectInArrayContainsId(main.array)) {
-                main.array.forEach(obj => {
-                    if (!obj.hasOwnProperty(main.nameId)) throw new Error(`\'${main.nameId}\' does not match the object ID field name.`);
 
-                    dataset.array.push(create(obj, main.nameId, main.wordSize, main.attributes));
-                })
-            }
+        if (main.array.length > 0 && objectInArrayContainsId(main.array)) {
+            main.array.forEach(obj => {
+                if (!obj.hasOwnProperty(main.nameId)) throw new Error(`\'${main.nameId}\' does not match the object ID field name.`);
+
+                dataset.array.push(create(obj, main.nameId, main.wordSize, main.attributes));
+            })
         }
+
     } catch (e) {
         console.error(`\n[${e.type}] - ${e.description}`);
-        console.error(`${e.stack}`);
     }
     return dataset.array;
 }

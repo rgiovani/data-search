@@ -50,7 +50,6 @@ describe("check if was created an object with the following tags", () => {
 
     test('it should return tag field with \'3\' and \'series\'. ', () => { //make.model.serie
         const res = create(myObj, 'id', 0, ['serie']);
-        console.log(res)
         expect(res.tags.includes('3')).toBe(true);
         expect(res.tags.includes('series')).toBe(true);
     })
