@@ -10,7 +10,7 @@ This is a library that aims to perform a search for data in an array of objects.
 - npm install data-search
 - yarn add data-search (recommended)
 
-**Version 1.1.1:**
+**Version 1.1.6:**
 - **To generate the data set it is necessary to pass an object** with some attributes.
 
 >`{`

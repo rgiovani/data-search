@@ -15,7 +15,10 @@ export let dataset = {
             }
             this._array = newArray;
         } catch (e) {
-            console.error(`\n[${e.type}] - ${e.description}`);
+            if (e.type && e.description)
+                console.error(`\n[${e.type}] - ${e.description}`);
+            else
+                console.error(e.message)
         }
     }
 }
@@ -37,7 +40,10 @@ export function dataSetGenerate(main) {
 
         return generate(main);
     } catch (e) {
-        console.error(`\n[${e.type}] - ${e.description}`);
+        if (e.type && e.description)
+            console.error(`\n[${e.type}] - ${e.description}`);
+        else
+            console.error(e.message)
     }
 }
 
@@ -55,7 +61,10 @@ function generate(main) {
         }
 
     } catch (e) {
-        console.error(`\n[${e.type}] - ${e.description}`);
+        if (e.type && e.description)
+            console.error(`\n[${e.type}] - ${e.description}`);
+        else
+            console.error(e.message)
     }
     return dataset.array;
 }

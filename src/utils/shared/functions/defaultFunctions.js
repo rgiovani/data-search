@@ -19,7 +19,8 @@ export function treatString(text, tokenize, size) {
         }
         return text;
     } catch (e) {
-        console.error(`\n[${e.type}] - ${e.description}`);
+        if (e.type && e.description)
+            console.error(`\n[${e.type}] - ${e.description}`);
     }
 }
 
@@ -74,7 +75,8 @@ export function sortArrayOfObject(array, sort, attr) {
         }
         return response;
     } catch (e) {
-        console.error(e.message)
+        if (e.type && e.description)
+            console.error(`\n[${e.type}] - ${e.description}`);
     }
 }
 

@@ -26,7 +26,10 @@ export function objectInArrayContainsId(array) {
         }
         return array;
     } catch (e) {
-        console.error(`\n[${e.type}] - ${e.description}`);
+        if (e.type && e.description)
+            console.error(`\n[${e.type}] - ${e.description}`);
+        else
+            console.error(e.message)
     }
 }
 
@@ -59,20 +62,27 @@ export function isString(str) {
 }
 
 function validateArrays(mainObj) {
-    if (!Array.isArray(mainObj.array)) {
-        throw new IsNotArrayError('main.array');
-    }
-    mainObj.attributes = (!hasAttr(mainObj, 'attributes')) ? [] : mainObj.attributes;
-    if (!Array.isArray(mainObj.attributes)) {
-        throw new IsNotArrayError('main.attribute');
-    }
-
-    for (let i = 0; i < mainObj.attributes.length; i++) {
-        if (!isString(mainObj.attributes[i]))
-            throw new IsNotStringError('attributes[' + i + ']');
-        else {
-            mainObj.attributes[i] = mainObj.attributes[i].toLowerCase();
+    try {
+        if (!Array.isArray(mainObj.array)) {
+            throw new IsNotArrayError('main.array');
         }
+        mainObj.attributes = (!hasAttr(mainObj, 'attributes')) ? [] : mainObj.attributes;
+        if (!Array.isArray(mainObj.attributes)) {
+            throw new IsNotArrayError('main.attribute');
+        }
+
+        for (let i = 0; i < mainObj.attributes.length; i++) {
+            if (!isString(mainObj.attributes[i]))
+                throw new IsNotStringError('attributes[' + i + ']');
+            else {
+                mainObj.attributes[i] = mainObj.attributes[i].toLowerCase();
+            }
+        }
+    } catch (e) {
+        if (e.type && e.description)
+            console.error(`\n[${e.type}] - ${e.description}`);
+        else
+            console.error(e.message)
     }
 
     return mainObj;
