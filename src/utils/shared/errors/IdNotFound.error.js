@@ -1,6 +1,6 @@
-class IdNotFoundError extends Error {
-    constructor(type = "RuntimeError", ...params) {
-        super(...params);
+export default class IdNotFoundError extends Error {
+    constructor() {
+        super();
 
         if (Error.captureStackTrace) {
             Error.captureStackTrace(this, IdNotFoundError);
@@ -8,9 +8,7 @@ class IdNotFoundError extends Error {
 
         this.name = 'ID_NOT_FOUND';
         this.description = 'Object doesn\'t have ID field.';
-        this.type = type;
+        this.type = 'RuntimeError';
         this.date = new Date();
     }
 }
-
-module.exports = IdNotFoundError;

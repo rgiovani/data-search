@@ -10,7 +10,7 @@ This is a library that aims to perform a search for data in an array of objects.
 - npm install data-search
 - yarn add data-search (recommended)
 
-**Version 1.1.1:**
+**Version 1.1.6:**
 - **To generate the data set it is necessary to pass an object** with some attributes.
 
 >`{`
@@ -29,21 +29,31 @@ const data = require('data-search');
 
 const myArray = [{
     id: 1,
-    title: 'This is my title',
+    title: 'Lorem ipsum dolor sit amet.',
+    card: {
+        description: 'Nullam sollicitudin justo.'
+    }
 }]
 
-const result = data.dataSetGenerate({
+const result = dataSetGenerate({
     array: myArray,
-    wordSize: 2,
+    wordSize: 6,
     nameId: 'id',
-    attributes: ['title']
+    attributes: ['title', 'description']
 })
 
 console.log(result)
 ``` 
 > result:
 ```
-[ { id: 1, title: 'This is my title', tags: [ 'this', 'title' ] } ]
+[
+  {
+    id: 1,
+    title: 'Lorem ipsum dolor sit amet.',
+    card: { description: 'Nullam sollicitudin justo.' },
+    tags: [ 'nullam', 'sollicitudin' ]
+  }
+]
 ```
 - The result will be an array of objects where, for each object in that array, an attribute called 'tags' will be added, which is an array with the filtered attribute values. 
 - These tags will be used by the search functionality(implementing).

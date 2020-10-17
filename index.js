@@ -1,21 +1,25 @@
-const IsNotArrayError = require('./src/utils/shared/exceptions/IsNotArray.error.js');
-const IdNotFoundError = require('./src/utils/shared/exceptions/IdNotFound.error.js')
-const NotAllowedParameterError = require('./src/utils/shared/exceptions/NotAllowedParameter.error.js');
-const validateIf = require('./src/utils/shared/functions/validateTypes.js');
-const arrayOfObject = require('./src/models/dataSet/ArrayOfObject.js')
-const defaultFunction = require('./src/utils/shared/functions/defaultFunctions.js');
-const IsNotObjectError = require('./src/utils/shared/exceptions/IsNotObject.error.js');
+import NotAllowedParameterError from './src/utils/shared/errors/NotAllowedParameter.error.js';
+import { initializeVariables, isObject, objectInArrayContainsId } from './src/utils/shared/functions/validateTypes.js';
+import { create } from './src/main/dataSet/create.js';
+import IsNotObjectError from './src/utils/shared/errors/IsNotObject.error.js';
 
-let dataset = {
+export let dataset = {
     _array: [],
     get array() {
         return this._array;
     },
     set array(newArray) {
-        if (!Array.isArray(newArray)) {
-            throw new NotAllowedParameterError('newArray', 'array');
+        try {
+            if (!Array.isArray(newArray)) {
+                throw new NotAllowedParameterError('newArray', 'array');
+            }
+            this._array = newArray;
+        } catch (e) {
+            if (e.type && e.description)
+                console.error(`\n[${e.type}] - ${e.description}`);
+            else
+                console.error(e.message)
         }
-        this._array = newArray;
     }
 }
 
@@ -28,36 +32,39 @@ let dataset = {
  * @param {[string]} main.attributes Name of the attributes on the objects you need to generate the tags.
  * @return Array of objects with an array of tags on each object in the array.
  */
-exports.dataSetGenerate = function(main) {
-    if (!validateIf.isObject(main)) {
-        throw new IsNotObjectError('RuntimeError', 'object')
-    }
+export function dataSetGenerate(main) {
+    try {
+        if (!isObject(main)) {
+            throw new IsNotObjectError('main')
+        }
 
-    return generate(main);
+        return generate(main);
+    } catch (e) {
+        if (e.type && e.description)
+            console.error(`\n[${e.type}] - ${e.description}`);
+        else
+            console.error(e.message)
+    }
 }
 
 function generate(main) {
     try {
-        main.wordSize = main.wordSize <= 0 || typeof main.wordSize != 'number' ? 0 : main.wordSize - 1;
-        main.nameId = typeof main.nameId == 'string' ? main.nameId : 'id';
+        initializeVariables(main);
         dataset.array = [];
-        if (Array.isArray(main.array)) {
-            if (main.array.length > 0) {
-                if (validateIf.objectInArrayContainsId(main.array)) {
-                    main.array.forEach(obj => {
-                        if (!obj.hasOwnProperty(main.nameId)) {
-                            throw new Error(`\'${main.nameId}\' does not match the object ID field name.`);
-                        }
-                        dataset.array.push(arrayOfObject.create(obj, main.nameId, main.wordSize, main.attributes));
-                    })
-                }
-            }
-        } else {
-            throw new IsNotArrayError('RuntimeError', 'Field array');
+
+        if (main.array.length > 0 && objectInArrayContainsId(main.array)) {
+            main.array.forEach(obj => {
+                if (!obj.hasOwnProperty(main.nameId)) throw new Error(`\'${main.nameId}\' does not match the object ID field name.`);
+
+                dataset.array.push(create(obj, main.nameId, main.wordSize, main.attributes));
+            })
         }
+
     } catch (e) {
-        console.error(`\n[${e.type}] - ${e.description}`);
-        console.error(`${e.stack}`);
+        if (e.type && e.description)
+            console.error(`\n[${e.type}] - ${e.description}`);
+        else
+            console.error(e.message)
     }
     return dataset.array;
 }
