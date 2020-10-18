@@ -16,7 +16,7 @@
 
 #####
 
-#
+
 ## **Dataset**
 #### **The first step is to generate the data set.**
 
@@ -106,11 +106,9 @@ console.log(result)
 - The result will be an array of objects where, for each object in that array, an attribute called 'tags' will be added, which is an array with the filtered attribute values. 
 - These tags will be used by the search functionality.
 
-#
+
 ## **Search**
 #### **The second step is to use the search function.**
-
-
 
 #### So let's say you want to search for one of those objects. For this you type a text in the search function, this search can result in the return of one or more objects.
 
@@ -147,6 +145,7 @@ console.log(result2);
 ```
 <br/>
 <br/>
+
 #### Next releases:
 
 ##### working on sorting and new functions to facilitate the search for objects.
