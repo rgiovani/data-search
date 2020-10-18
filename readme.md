@@ -148,5 +148,6 @@ console.log(result2);
 <br/>
 <br/>
 #### Next releases:
+
 ##### working on sorting and new functions to facilitate the search for objects.
 
