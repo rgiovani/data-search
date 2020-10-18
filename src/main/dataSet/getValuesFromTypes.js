@@ -1,5 +1,6 @@
 import { equalsParam } from '../../utils/shared/functions/defaultFunctions.js';
 import { isArray, isObject, isStringAndNotId } from '../../utils/shared/functions/validateTypes.js';
+import { attributeBox } from './create.js';
 import { identifyTags } from './tags.js';
 
 let checkpoint;
@@ -41,6 +42,8 @@ export function getContentFromObject(obj, attribute, params, idName, size) {
                         } else if (isArray(obj[attribute][index])) {
                             checkpoint = attribute;
                             getContentFromArray(obj[attribute], index, params, idName, size)
+                        } else {
+                            attributeBox.add(obj[attribute], index);
                         }
                     }
                 })
@@ -54,6 +57,7 @@ export function getContentFromString(obj, attribute, params, idName, size) {
     if (attribute != 'id' && attribute != 'tags') {
         switch (typeof obj[attribute]) {
             case 'string':
+                attributeBox.add(obj, attribute);
                 if (attribute == checkpoint || equalsParam(attribute, params))
                     identifyTags(params, attribute, obj, size, idName);
                 break;
@@ -64,7 +68,12 @@ export function getContentFromString(obj, attribute, params, idName, size) {
                     getContentFromArray(obj, attribute, params, idName, size);
                 }
                 break;
+
         }
     }
+
+    attributeBox.add(obj, attribute);
+
+
     return obj[attribute];
 }

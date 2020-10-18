@@ -1,6 +1,7 @@
 import NotAllowedParameterError from '../errors/NotAllowedParameter.error.js';
-import stringSimilarity from 'string-similarity';
 import natural from 'natural';
+import stringSimilarity from 'string-similarity';
+import { isArray, isString } from './validateTypes.js';
 
 const { WordTokenizer } = natural;
 const tokenizer = new WordTokenizer;
@@ -10,6 +11,7 @@ const tokenizer = new WordTokenizer;
  ** Tokenize(true): Split strings into an array for each word. */
 export function treatString(text, tokenize, size) {
     try {
+        size = (!size) ? 0 : size;
         if (typeof text != 'string' && typeof tokenize != 'boolean') {
             throw new NotAllowedParameterError('text', 'string', 'boolean');
         }
@@ -17,6 +19,7 @@ export function treatString(text, tokenize, size) {
         if (tokenize) {
             return removeRedundancyFromStringArray(tokenizer.tokenize(text), size);
         }
+
         return text;
     } catch (e) {
         if (e.type && e.description)
@@ -35,9 +38,15 @@ export function removeSpecialCharactersInString(text) {
 /** * This function remove duplicate words in array of strings */
 export function removeRedundancyFromStringArray(token, size) {
     const newToken = [];
-    token.forEach(word => {
-        if (!newToken.includes(word.toLowerCase()) && word.length > size) {
-            newToken.push(word.toString().toLowerCase());
+    token.forEach(word => { //ID - String
+        if (isString(word)) {
+            if (!newToken.includes(word.toLowerCase()) && word.length > size) {
+                newToken.push(word.toString().toLowerCase());
+            }
+        } else if (!isNaN(word)) { //ID - Number
+            if (!newToken.includes(word)) {
+                newToken.push(word);
+            }
         }
     });
     return newToken;
@@ -45,11 +54,13 @@ export function removeRedundancyFromStringArray(token, size) {
 
 //** This function to compare two strings based on the similar value between them * /
 export function similarStrings(text, tags, similarValue) {
-    tags = removeRedundancyFromStringArray(tags);
-    const matches = findBestMatch(text, tags);
-    for (const i in matches.ratings) {
-        if (matches.ratings[i].rating > similarValue) {
-            return true;
+    tags = removeRedundancyFromStringArray(tags, 0);
+    if (isString(text) && isArray(tags)) {
+        const matches = stringSimilarity.findBestMatch(text, tags);
+        for (const i in matches.ratings) {
+            if (matches.ratings[i].rating > similarValue) {
+                return true;
+            }
         }
     }
     return false;
@@ -62,22 +73,15 @@ export function makeStringSingular(word) {
 }
 
 //** This function orders a object array*/
-export function sortArrayOfObject(array, sort, attr) {
-    try {
-        array.forEach(obj => {
-            hasAttrFilter(obj, attr);
-        })
-        let response;
-        if (sort == 1) {
-            response = array.sort((a, b) => (a[attr] > b[attr]) ? 1 : -1);
-        } else {
-            response = array.sort((a, b) => (a[attr] > b[attr]) ? -1 : 1);
-        }
-        return response;
-    } catch (e) {
-        if (e.type && e.description)
-            console.error(`\n[${e.type}] - ${e.description}`);
+export function sortArrayOfObject(array, sort, sortAttribute) {
+    let response;
+    if (sort == 1) {
+        response = array.sort((a, b) => (a[sortAttribute] > b[sortAttribute]) ? 1 : -1);
+    } else {
+        response = array.sort((a, b) => (a[sortAttribute] > b[sortAttribute]) ? -1 : 1);
     }
+    return response;
+
 }
 
 //** This function returns the current system time in string format*/

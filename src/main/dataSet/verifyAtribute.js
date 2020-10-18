@@ -10,7 +10,6 @@ function insideMainAtributes(obj, attribute, idName, size, params) {
     }
 
     return obj[attribute];
-
 }
 
 export function mainAttributes(obj, attribute, idName, size, params) {
