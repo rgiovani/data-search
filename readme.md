@@ -135,7 +135,6 @@
 <br/>
 
   ## Priority attribute
-  -
   
   It is used when an object does not have enough information to be returned by the first parameter of the search function, but it needs to be returned, because the object has an attribute and this attribute has the necessary value for the return.
 
