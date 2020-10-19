@@ -1,4 +1,4 @@
-  <h1> Data-search-js  1.2.1 </h1>
+  # Data-search-js  1.2.1
 
   <img src="./icon.png" width="250">
   
@@ -14,15 +14,24 @@
     - npm install data-search
     - yarn add data-search (recommended)
 
-<br/>
+  <br/>
 
-  **This library use es6.**
+    **This library use es6.**
 
-  *In your package.json use:*
-      "type": "module"
+    *In your package.json use:*
+        "type": "module"
 
-  <h2> **Dataset** </h2>
-  -
+  <br/>
+  <br/>
+
+  ## Summary
+
+  - [Dataset](#dataset)
+  - [Search](#search)
+
+
+  ## Dataset
+  
 
   **The first step is to generate the data set.**
   
@@ -91,9 +100,11 @@
   - The result will be an array of objects where, for each object in that array, an attribute called 'tags' will be added, which is an array with the filtered attribute values. 
   - These tags will be used by the search functionality.
 
+<br/>
+<br/>
 
-  <h2> **Search** </h2>
-  -
+  ## Search
+  
   **The second step is to use the search function.**
 
   So let's say you want to search for one of those objects. For this you type a text in the search function, this search can result in the return of one or more objects.
@@ -118,7 +129,10 @@
   ]
 ```
 
-  <h2> **Priority attribute** </h2>
+<br/>
+<br/>
+
+  ## Priority attribute
   -
   
   It is used when an object does not have enough information to be returned by the first parameter of the search function, but it needs to be returned, because the object has an attribute and this attribute has the necessary value for the return.
