@@ -28,6 +28,8 @@
 
   - [Dataset](#dataset)
   - [Search](#search)
+    - [Priority attribute](#priority-attribute)
+    - [Tips to use the priority attribute](#tip-to-use-the-priority-attribute)
 
 
   ## Dataset
@@ -199,7 +201,7 @@
  
  <br/>
 
- **Tip to use the priority attribute**
+ ## Tip to use the priority attribute
 
  - The idea for the use of this priority attribute could be in the case of your application has search not only by field but also by filters, in the case of filters of genre of films (adventure, action etc...). 
  - So besides waiting for the user to type something, the application can also wait for him to pass a filter. 
