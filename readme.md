@@ -24,11 +24,11 @@
   
   >`{`
 
-  > **`array : [{}]` // array of objects**.
+  > **`array : [{}]` // array of objects (the id field must exist on each object).**.
 
   > **`wordSize : number` // size of the words** you want to filter.
 
-  > **`nameId : string` // name of the object ID field**
+  > **`nameId : string` // name of the object ID field.**
 
   > **`attributes: [string]` // name of the attributes** you want to filter **in array format.**
 
