@@ -1,15 +1,23 @@
-  # Data-search-js  1.2.1
+  # Data-search-js 1.2.1
 
   <img src="./icon.png" width="250">
   
   <br/>
   
   This is a library that aims to perform a search for data in an array of objects. The parameter for such a search is a manual search for a user in a search bar.
-
-  **Check the dependencies:**
-    - https://www.npmjs.com/package/data-search
   
-  **Commands**
+  ## Summary
+  
+
+   - [Dataset](#dataset)
+   - [Search](#search)
+     - [Priority attribute](#priority-attribute)
+     - [Tips to use the priority attribute](#tip-to-use-the-priority-attribute)
+   - [Check the dependencies](#check-the-dependencies)
+   - [Next releases](#next-releases)
+  
+
+  ## **Commands**
 
     - npm install data-search
     - yarn add data-search (recommended)
@@ -23,14 +31,6 @@
 
   <br/>
   <br/>
-
-  ## Summary
-
-  - [Dataset](#dataset)
-  - [Search](#search)
-    - [Priority attribute](#priority-attribute)
-    - [Tips to use the priority attribute](#tip-to-use-the-priority-attribute)
-
 
   ## Dataset
   
@@ -212,8 +212,10 @@
 ```
  - The result would be the objects searched by typing but with priorities in the filters.
 
-
- **Next releases:**
-
+  ## **Check the dependencies:**
+    - https://www.npmjs.com/package/data-search
+    
+  ## **Next releases:**
+  
  *Working on sorting and new functions to facilitate the search for objects.*
 
