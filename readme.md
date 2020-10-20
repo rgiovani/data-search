@@ -13,6 +13,7 @@ This is a library that aims to perform a search for data in an array of objects.
   - [Search](#search)
     - [Priority attribute](#priority-attribute)
     - [Tips to use the priority attribute](#tip-to-use-the-priority-attribute)
+    - [Search distance](#search-distance)
   - [Check the dependencies](#check-the-dependencies)
   - [Next releases](#next-releases)
 
@@ -211,6 +212,16 @@ const res = 'lords ring' + ' ' + 'war';
 search( res, 'genre');
 ```
 - The result would be the objects searched by typing but with priorities in the filters.
+
+## Search distance
+
+- The search uses a distance system to find the results. 
+- This distance is delimited between two ends called 'min' and 'max'.
+  - As an attempt to find the best word combinations, the search always uses the value of 'max' first, to verify that the words in the object's array of tags are closely to what was typed, making it possible to verify that what was typed is identical to some tag of an object.
+  - If nothing is found, the search uses the value between 'max' and 'min' to find the words (typed in the search) that most closely match the object's tag array.
+  - At this point the closer the 'min' is to 'max' or the 'max' to 'min', the lower the tolerance for the words in the search and the greater the probability of finding an object similar (or not) to the one requested .
+
+
 
 ## **Check the dependencies:**
   - https://www.npmjs.com/package/data-search
