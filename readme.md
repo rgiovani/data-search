@@ -14,6 +14,9 @@ This is a library that aims to perform a search for data in an array of objects.
     - [Priority attribute](#priority-attribute)
     - [Tips to use the priority attribute](#tip-to-use-the-priority-attribute)
     - [Search distance](#search-distance)
+      - [Using getDistance](#using-getdistance)
+      - [Using setDistance](#using-setdistance)
+      - [Using resetDistance](#using-resetdistance)
   - [Check the dependencies](#check-the-dependencies)
   - [Next releases](#next-releases)
 
@@ -221,8 +224,8 @@ search( res, 'genre');
   - If nothing is found, the search uses the value between 'max' and 'min' to find the words (typed in the search) that most closely match the object's tag array.
   - At this point the closer the 'min' is to 'max' or the 'max' to 'min', the lower the tolerance for the words in the search and the greater the probability of finding an object similar (or not) to the one requested .
 
-### Using setDistance(min,max)
-
+### Using setDistance
+- setDistance(min,max)
 - This function allows changing the maximum and minimum tolerance that the search needs to bring results.
 - This function accepts only fractional numeric values between 0 and 1.
 
@@ -275,7 +278,8 @@ console.log(search('fu'));
 - Now the search tolerance is only 0.3 (0.9-0.6), increasing the possibility of finding objects even with wrong words or in half.
 [RECOMMENDED] - For a more accurate search, i recommend using 'max' as being greater than 8, and working on 'min' with values between 2 to 7.5.
 
-### Using getDistance()
+### Using getDistance
+- getDistance()
 - To find out what the 'min' and 'max' values are, use 'getdistance', this function returns an object with the updated 'min' and 'max' values:
 
 > Code:
@@ -287,7 +291,8 @@ console.log(getSearchDistance());
 { min: 0.3, max: 0.85 }
 ```
 
-### Using resetDistance()
+### Using resetDistance
+- resetDistance()
 - Resets the 'min' and 'max' values to the default values.
 'min' = 0.3.
 'max' = '0.85.
