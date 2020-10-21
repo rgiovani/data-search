@@ -1,6 +1,6 @@
 import { removeRedundancyFromStringArray } from '../../utils/shared/functions/defaultFunctions.js';
-import { dataset } from '../../../index.js';
 import { isArray } from '../../utils/shared/functions/validateTypes.js';
+import { dataset } from '../dataSet/generateDataset.js';
 
 export function fillArrayOfIds(idsFounded, highestValue) {
     const res = isArray(idsFounded);

@@ -3,9 +3,8 @@ import natural from 'natural';
 import stringSimilarity from 'string-similarity';
 import { isArray, isString } from './validateTypes.js';
 
-const { WordTokenizer } = natural;
+const { WordTokenizer, PresentVerbInflector } = natural;
 const tokenizer = new WordTokenizer;
-
 
 /** * This function remove special characters. 
  ** Tokenize(true): Split strings into an array for each word. */
@@ -108,10 +107,11 @@ export function equalsParam(attribute, params) {
     return contains;
 }
 
-
 //** This function throws an Error if the attribute was not found */
 export function hasAttrFilter(obj, attr) {
-    if (!hasAttr(obj, attr)) throw new Error('The attribute: \'' + attr + '\' does not seem to exist.');
+    if (!hasAttr(obj, attr)) {
+        throw new Error('The attribute: \'' + attr + '\' does not seem to exist.')
+    };
 
     return true;
 }

@@ -1,5 +1,5 @@
 import { isArray } from '../../utils/shared/functions/validateTypes.js';
-import { dataset } from '../../../index.js';
+import { dataset } from '../dataSet/generateDataset.js';
 
 export function getObjectBySimilarIds(ids) {
     if (isArray(ids)) {

@@ -2,7 +2,7 @@ import { similarStrings, treatString } from '../../utils/shared/functions/defaul
 import { getObjectBySimilarIds } from './getObjectBySimilarIds.js';
 import { findSimilarMatches } from './findSimilarMatches.js';
 import { fillArrayOfIds } from './fillArrayOfIds.js';
-import { dataset } from '../../../index.js'
+import { dataset } from '../dataSet/generateDataset.js'
 import natural from 'natural';
 import { attributeBox } from '../dataSet/create.js';
 
@@ -29,10 +29,10 @@ export function doSearch(field, priorityAttribute) {
             compareWordsWithTags(object, priorityAttribute);
         }
     });
-    similarIds.message = (foundInMainInfo == 0) ? 'I didn\'t find what you searched for, but I found:' : 'OK';
-    similarIds.ids = fillArrayOfIds(idsFound, highestValue);
-    res = getObjectBySimilarIds(similarIds.ids);
 
+    similarIds.ids = fillArrayOfIds(idsFound, highestValue);
+    similarIds.message = (similarIds.ids && similarIds.ids.length > 0) ? 'OK' : 'EMPTY';
+    res = getObjectBySimilarIds(similarIds.ids);
     if (res)
         return res;
     else
@@ -57,4 +57,8 @@ function compareWordsWithTags(object, priorityAttribute) {
         }
     });
     return similarsWords;
+}
+
+export function findLatestSearchedIds() {
+    return similarIds;
 }
