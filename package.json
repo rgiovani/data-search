@@ -1,8 +1,7 @@
 {
     "name": "data-search",
-    "version": "1.2.6",
+    "version": "1.2.7",
     "main": "index.js",
-    "type": "module",
     "repository": {
         "type": "git",
         "url": "git@github.com:rgiovani/data-search.git"
@@ -22,7 +21,7 @@
         "string-similarity": "^4.0.2"
     },
     "scripts": {
-        "start": "nodemon index.js",
+        "start": "nodemon index.js ",
         "test": "jest",
         "test:cov": "jest --coverage"
     },
