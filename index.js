@@ -1,9 +1,9 @@
-import { isObject, isString } from './src/utils/shared/functions/validateTypes.js';
-import IsNotObjectError from './src/utils/shared/errors/IsNotObject.error.js';
-import { doSearch } from './src/main/search/search.js';
-import IsNotStringError from './src/utils/shared/errors/IsNotString.error.js';
-import { getMaxMinDistance, resetMaxMin, setMaxMinDistance } from './src/main/search/findSimilarMatches.js';
-import { generate, findDataset } from './src/main/dataSet/generateDataset.js';
+const validateType = require('./src/utils/shared/functions/validateTypes.js');
+const { IsNotObjectError } = require('./src/utils/shared/errors/IsNotObject.error.js');
+const { doSearch, findLatestSearchedIds } = require('./src/main/search/search.js');
+const { IsNotStringError } = require('./src/utils/shared/errors/IsNotString.error.js');
+const similar = require('./src/main/search/findSimilarMatches.js');
+const dataset = require('./src/main/dataSet/generateDataset.js');
 
 /**
  * This function generates a data set based on an array of objects. **ID field required on each object**.
@@ -14,13 +14,13 @@ import { generate, findDataset } from './src/main/dataSet/generateDataset.js';
  * @param {[string]} main.attributes Name of the attributes on the objects you need to generate the tags.
  * @return Array of objects with an array of tags on each object in the array.
  */
-export function dataSetGenerate(main) {
+function dataSetGenerate(main) {
+
     try {
-        if (!isObject(main)) {
+        if (!validateType.isObject(main)) {
             throw new IsNotObjectError('main')
         }
-
-        return generate(main);
+        return dataset.generate(main);
     } catch (e) {
         if (e.type && e.description)
             console.error(`\n[${e.type}] - ${e.description}`);
@@ -37,9 +37,9 @@ export function dataSetGenerate(main) {
  * @param  priorityAttribute Attribute that the search will always give priority.
  * @return Returns an array with the found objects.
  */
-export function search(input, priorityAttribute) {
+function search(input, priorityAttribute) {
     try {
-        if (!isString(input)) {
+        if (!validateType.isString(input)) {
             throw new IsNotStringError('input');
         }
         const field = (input) ? input : '';
@@ -54,15 +54,15 @@ export function search(input, priorityAttribute) {
 /**
  * This function returns an object with all the attributes of the dataset.
  */
-export function getDataset() {
-    return findDataset();
+function getDataset() {
+    return dataset.findDataset();
 }
 
 /**
  * This function returns an object with the current values ​​of 'min' and 'max'.
  */
-export function getSearchDistance() {
-    return getMaxMinDistance();
+function getSearchDistance() {
+    return similar.getMaxMinDistance();
 }
 
 /**
@@ -71,13 +71,28 @@ export function getSearchDistance() {
  * @param  min Minimum tolerance value. (0.30 by default).
  * @param  max Max tolerance value. (0.85 by default).
  */
-export function setSearchDistance(min, max) {
-    setMaxMinDistance(min, max);
+function setSearchDistance(min, max) {
+    similar.setMaxMinDistance(min, max);
 }
 
 /** 
  * This function resets the distance values ​​('min' and 'max') to the default values. 
  */
-export function resetDistance() {
-    resetMaxMin();
+function resetDistance() {
+    similar.resetMaxMin();
 }
+
+/**
+ * This function returns an object with an array of ids found by the search.
+ */
+function getLatestSearchedIds() {
+    return findLatestSearchedIds();
+}
+
+module.exports.resetDistance = resetDistance;
+module.exports.setSearchDistance = setSearchDistance;
+module.exports.getSearchDistance = getSearchDistance;
+module.exports.getDataset = getDataset;
+module.exports.search = search;
+module.exports.dataSetGenerate = dataSetGenerate;
+module.exports.getLatestSearchedIds = getLatestSearchedIds;

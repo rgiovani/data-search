@@ -1,4 +1,4 @@
-export default class IsNotStringError extends Error {
+class IsNotStringError extends Error {
     constructor(attribute = 'Value') {
         super(attribute);
 
@@ -11,3 +11,5 @@ export default class IsNotStringError extends Error {
         this.date = new Date();
     }
 }
+
+module.exports = { IsNotStringError };

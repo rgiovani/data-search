@@ -1,4 +1,4 @@
-export default class IdNotAllowedError extends Error {
+class IdNotAllowedError extends Error {
     constructor(attribute = "ID") {
         super(attribute);
 
@@ -12,3 +12,5 @@ export default class IdNotAllowedError extends Error {
         this.date = new Date();
     }
 }
+
+module.exports = { IdNotAllowedError };

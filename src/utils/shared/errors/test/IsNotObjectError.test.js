@@ -1,23 +1,23 @@
-import { dataSetGenerate } from '../../../../../index.js';
-import { objectInArrayContainsId } from '../../functions/validateTypes.js';
-import IsNotObjectError from '../IsNotObject.error.js';
+const dataset = require('../../../../../index.js');
+const validate = require('../../functions/validateTypes.js');
+const { IsNotObjectError } = require('../IsNotObject.error.js');
 
 describe("Validating \'main\'. ", () => {
     test("it should throw that \'main\' cannot be array", () => {
         const main = [];
         return expect(Promise.reject(new IsNotObjectError('main')))
-            .rejects.toThrow(dataSetGenerate(main));
+            .rejects.toThrow(dataset.dataSetGenerate(main));
     });
 
     test("it should throw that \'main\' cannot be number", () => {
         const main = 1;
         return expect(Promise.reject(new IsNotObjectError('main')))
-            .rejects.toThrow(dataSetGenerate(main));
+            .rejects.toThrow(dataset.dataSetGenerate(main));
     });
 
     test("it should throw that \'main\' cannot be string", () => {
         const main = 'foo';
-        return expect(Promise.reject(new IsNotObjectError('main'))).rejects.toThrow(dataSetGenerate(main));
+        return expect(Promise.reject(new IsNotObjectError('main'))).rejects.toThrow(dataset.dataSetGenerate(main));
     });
 
 });
@@ -29,7 +29,7 @@ describe("Validating values inside attribute \'array\' in main object", () => {
         };
 
         return expect(Promise.reject(new IsNotObjectError()))
-            .rejects.toThrow(objectInArrayContainsId(main.array));
+            .rejects.toThrow(validate.objectInArrayContainsId(main.array));
     });
     test("it should throw that \'value\' inside \'array\' cannot be boolean", () => {
         const main = {
@@ -37,7 +37,7 @@ describe("Validating values inside attribute \'array\' in main object", () => {
         };
 
         return expect(Promise.reject(new IsNotObjectError()))
-            .rejects.toThrow(objectInArrayContainsId(main.array));
+            .rejects.toThrow(validate.objectInArrayContainsId(main.array));
     });
     test("it should throw that \'value\' inside \'array\' cannot be string", () => {
         const main = {
@@ -45,13 +45,13 @@ describe("Validating values inside attribute \'array\' in main object", () => {
         };
 
         return expect(Promise.reject(new IsNotObjectError()))
-            .rejects.toThrow(objectInArrayContainsId(main.array));
+            .rejects.toThrow(validate.objectInArrayContainsId(main.array));
     });
 
     test("it should return array with an object inside", () => {
         const main = {
             array: [{ id: 1 }]
         };
-        expect(objectInArrayContainsId(main.array)).toBe(main.array);
+        expect(validate.objectInArrayContainsId(main.array)).toBe(main.array);
     });
 });

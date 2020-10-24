@@ -1,4 +1,4 @@
-import { initializeVariables, isObject } from '../validateTypes.js'
+const validateTypes = require('../validateTypes.js');
 
 describe('Validating \'validateTypes\' function', () => {
     test('it should return an \'object\' from initializeVariables function', () => {
@@ -6,8 +6,8 @@ describe('Validating \'validateTypes\' function', () => {
             array: [],
             wordSize: 2
         }
-        const res = initializeVariables(main);
-        expect(isObject(res)).toBe(true);
+        const res = validateTypes.initializeVariables(main);
+        expect(validateTypes.isObject(res)).toBe(true);
 
     })
 })

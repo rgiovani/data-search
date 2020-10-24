@@ -1,20 +1,20 @@
-import { equalsParam } from '../../utils/shared/functions/defaultFunctions.js';
-import { isArray, isObject, isStringAndNotId } from '../../utils/shared/functions/validateTypes.js';
-import { attributeBox } from './create.js';
-import { identifyTags } from './tags.js';
+const tags = require('./tags.js');
+const defaultFunctions = require('../../utils/shared/functions/defaultFunctions.js');
+const validateTypes = require('../../utils/shared/functions/validateTypes.js');
+const create = require('./create.js');
 
 let checkpoint;
 
-export function getContentFromArray(obj, attribute, params, idName, size) {
+function getContentFromArray(obj, attribute, params, idName, size) {
     obj[attribute].forEach((index) => {
-        if (isStringAndNotId(index, idName) && equalsParam(attribute, params)) {
+        if (validateTypes.isStringAndNotId(index, idName) && defaultFunctions.equalsParam(attribute, params)) {
             checkpoint = attribute;
-            identifyTags(params, attribute, obj, size, idName);
-        } else if (isObject(index)) {
+            tags.identifyTags(params, attribute, obj, size, idName);
+        } else if (validateTypes.isObject(index)) {
             Object.keys(index).forEach((word) => {
                 getContentFromString(index, word, params, idName, size);
             });
-        } else if (isArray(obj[attribute])) {
+        } else if (validateTypes.isArray(obj[attribute])) {
             obj[attribute].forEach(item => {
                 Object.keys(item).forEach((i) => {
                     checkpoint = attribute;
@@ -27,23 +27,23 @@ export function getContentFromArray(obj, attribute, params, idName, size) {
 
 }
 
-export function getContentFromObject(obj, attribute, params, idName, size) {
+function getContentFromObject(obj, attribute, params, idName, size) {
     if (attribute != 'id' && attribute != 'tags') {
-        if (isObject(obj[attribute])) {
+        if (validateTypes.isObject(obj[attribute])) {
             Object.keys(obj[attribute]).forEach((index) => {
                 params.forEach(param => {
                     if (param == index.toLowerCase()) {
                         checkpoint = attribute;
                         getContentFromString(obj[attribute], index, params, idName, size);
                     } else {
-                        if (isObject(obj[attribute][index])) {
+                        if (validateTypes.isObject(obj[attribute][index])) {
                             checkpoint = attribute;
                             getContentFromObject(obj[attribute], index, params, idName, size);
-                        } else if (isArray(obj[attribute][index])) {
+                        } else if (validateTypes.isArray(obj[attribute][index])) {
                             checkpoint = attribute;
                             getContentFromArray(obj[attribute], index, params, idName, size)
                         } else {
-                            attributeBox.add(obj[attribute], index);
+                            create.attributeBox.add(obj[attribute], index);
                         }
                     }
                 })
@@ -53,18 +53,18 @@ export function getContentFromObject(obj, attribute, params, idName, size) {
     }
 }
 
-export function getContentFromString(obj, attribute, params, idName, size) {
+function getContentFromString(obj, attribute, params, idName, size) {
     if (attribute != 'id' && attribute != 'tags') {
         switch (typeof obj[attribute]) {
             case 'string':
-                attributeBox.add(obj, attribute);
-                if (attribute == checkpoint || equalsParam(attribute, params))
-                    identifyTags(params, attribute, obj, size, idName);
+                create.attributeBox.add(obj, attribute);
+                if (attribute == checkpoint || defaultFunctions.equalsParam(attribute, params))
+                    tags.identifyTags(params, attribute, obj, size, idName);
                 break;
             case 'object':
-                if (isObject(obj[attribute])) {
+                if (validateTypes.isObject(obj[attribute])) {
                     getContentFromObject(obj, attribute, params, idName, size);
-                } else if (isArray(obj[attribute])) {
+                } else if (validateTypes.isArray(obj[attribute])) {
                     getContentFromArray(obj, attribute, params, idName, size);
                 }
                 break;
@@ -72,8 +72,11 @@ export function getContentFromString(obj, attribute, params, idName, size) {
         }
     }
 
-    attributeBox.add(obj, attribute);
-
+    create.attributeBox.add(obj, attribute);
 
     return obj[attribute];
 }
+
+module.exports.getContentFromString = getContentFromString;
+module.exports.getContentFromObject = getContentFromObject;
+module.exports.getContentFromArray = getContentFromArray;

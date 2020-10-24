@@ -1,8 +1,8 @@
-import NotAllowedParameterError from "../../utils/shared/errors/NotAllowedParameter.error.js";
-import { initializeVariables, objectInArrayContainsId } from "../../utils/shared/functions/validateTypes.js";
-import { create } from "./create.js";
+const { NotAllowedParameterError } = require("../../utils/shared/errors/NotAllowedParameter.error.js");
+const validateTypes = require("../../utils/shared/functions/validateTypes.js");
+const { create } = require("./create.js");
 
-export let dataset = {
+let dataset = {
     _array: [],
     createdAt: undefined,
     get array() {
@@ -23,12 +23,12 @@ export let dataset = {
     }
 }
 
-export function generate(main) {
+function generate(main) {
     try {
-        initializeVariables(main);
+        validateTypes.initializeVariables(main);
         dataset.array = [];
 
-        if (main.array.length > 0 && objectInArrayContainsId(main.array)) {
+        if (main.array.length > 0 && validateTypes.objectInArrayContainsId(main.array)) {
             main.array.forEach(obj => {
                 if (!obj.hasOwnProperty(main.nameId)) throw new Error(`\'${main.nameId}\' does not match the object ID field name.`);
 
@@ -39,13 +39,19 @@ export function generate(main) {
     } catch (e) {
         if (e.type && e.description)
             console.error(`\n[${e.type}] - ${e.description}`);
-        else
+        else {
             console.error(e.message)
+            console.error(e.stack)
+        }
     }
     dataset.createdAt = new Date();
     return dataset.array;
 }
 
-export function findDataset() {
+function findDataset() {
     return dataset;
 }
+
+module.exports.findDataset = findDataset;
+module.exports.generate = generate;
+module.exports.dataset = dataset;

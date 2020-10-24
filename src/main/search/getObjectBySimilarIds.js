@@ -1,11 +1,11 @@
-import { isArray } from '../../utils/shared/functions/validateTypes.js';
-import { dataset } from '../dataSet/generateDataset.js';
+const validateTypes = require('../../utils/shared/functions/validateTypes.js');
+const generate = require('../dataSet/generateDataset.js');
 
-export function getObjectBySimilarIds(ids) {
-    if (isArray(ids)) {
+function getObjectBySimilarIds(ids) {
+    if (validateTypes.isArray(ids)) {
         const objectsFound = [];
         if (ids) {
-            dataset.array.forEach(object => {
+            generate.dataset.array.forEach(object => {
                 ids.forEach(id => {
                     if (object.id == id) {
                         objectsFound.push(object);
@@ -17,3 +17,5 @@ export function getObjectBySimilarIds(ids) {
         return objectsFound;
     }
 }
+
+module.exports.getObjectBySimilarIds = getObjectBySimilarIds;

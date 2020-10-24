@@ -1,6 +1,6 @@
-import stringSimilarity from 'string-similarity';
-import IsNotNumberError from '../../utils/shared/errors/IsNotNumber.error.js';
-import { isArray } from '../../utils/shared/functions/validateTypes.js';
+const stringSimilarity = require('string-similarity');
+const { IsNotNumberError } = require('../../utils/shared/errors/IsNotNumber.error.js');
+const validateTypes = require('../../utils/shared/functions/validateTypes.js');
 
 const distance = {
     _min: 0.30,
@@ -13,11 +13,11 @@ const distance = {
     }
 }
 
-export function getMaxMinDistance() {
+function getMaxMinDistance() {
     return { min: distance.min, max: distance.max };
 }
 
-export function setMaxMinDistance(min, max) {
+function setMaxMinDistance(min, max) {
     try {
         if (!min & !max) {
             throw new Error('\'min\'or \'max\' cannot be undefined or null')
@@ -49,13 +49,13 @@ export function setMaxMinDistance(min, max) {
     }
 }
 
-export function resetMaxMin() {
+function resetMaxMin() {
     distance._min = 0.30;
     distance._max = 0.85;
 }
 
-export function findSimilarMatches(input, tags) {
-    if (isArray(input) && isArray(tags)) {
+function findSimilarMatches(input, tags) {
+    if (validateTypes.isArray(input) && validateTypes.isArray(tags)) {
         const getSimilar = [];
         input.forEach(word => {
             const matches = stringSimilarity.findBestMatch(word, tags);
@@ -70,3 +70,8 @@ export function findSimilarMatches(input, tags) {
         return getSimilar;
     }
 }
+
+module.exports.findSimilarMatches = findSimilarMatches;
+module.exports.resetMaxMin = resetMaxMin;
+module.exports.setMaxMinDistance = setMaxMinDistance;
+module.exports.getMaxMinDistance = getMaxMinDistance;

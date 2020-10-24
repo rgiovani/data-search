@@ -1,4 +1,4 @@
-export default class NotAllowedParameterError extends Error {
+class NotAllowedParameterError extends Error {
     constructor(field, ...params) {
         super(field, ...params);
 
@@ -25,3 +25,5 @@ function description(text, param) {
     text = text.concat('.');
     return text;
 }
+
+module.exports = { NotAllowedParameterError };

@@ -1,29 +1,31 @@
-import { treatString, verifyParam } from '../../utils/shared/functions/defaultFunctions.js';
-import { isArray, isString, isStringAndNotId } from '../../utils/shared/functions/validateTypes.js';
-import { collection, tmp } from './create.js';
+const create = require('./create.js');
+const defaultFunctions = require('../../utils/shared/functions/defaultFunctions.js');
+const validateTypes = require('../../utils/shared/functions/validateTypes.js');
 
 function fillTags(field, size) {
-    const wordsArray = treatString(field, true, size);
+    const wordsArray = defaultFunctions.treatString(field, true, size);
+
     wordsArray.forEach(word => {
-        if (!tmp.tags.includes(word.toLowerCase()) && word.length >= size) {
-            tmp.tags.push(word.toString().toLowerCase());
+        if (!create.tmp.tags.includes(word.toLowerCase()) && word.length >= size) {
+            create.tmp.tags.push(word.toString().toLowerCase());
         }
     });
+
 }
 
-export function identifyTags(params, attribute, obj, size, idName) {
+function identifyTags(params, attribute, obj, size, idName) {
     params.forEach(paramAtribute => {
-        if (verifyParam(attribute, paramAtribute, collection.name)) {
+        if (defaultFunctions.verifyParam(attribute, paramAtribute, create.collection.name)) {
             switch (typeof obj[attribute]) {
                 case 'string':
-                    if (isStringAndNotId(attribute.toLowerCase(), idName.toLowerCase())) {
+                    if (validateTypes.isStringAndNotId(attribute.toLowerCase(), idName.toLowerCase())) {
                         fillTags(obj[attribute].toString(), size);
                     }
                     break;
                 case 'object':
-                    if (isArray(obj[attribute])) {
+                    if (validateTypes.isArray(obj[attribute])) {
                         obj[attribute].forEach(item => {
-                            (isString(item)) ? fillTags(item.toString(), size): item;
+                            (validateTypes.isString(item)) ? fillTags(item.toString(), size) : item;
                         })
                     }
                     break;
@@ -34,3 +36,5 @@ export function identifyTags(params, attribute, obj, size, idName) {
 
     return obj[attribute];
 }
+
+module.exports.identifyTags = identifyTags;
