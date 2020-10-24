@@ -1,4 +1,4 @@
-export default class IsNotArrayError extends Error {
+class IsNotArrayError extends Error {
     constructor(attribute = 'Value') {
         super(attribute);
 
@@ -12,3 +12,5 @@ export default class IsNotArrayError extends Error {
 
     }
 }
+
+module.exports = { IsNotArrayError };

@@ -1,4 +1,4 @@
-export default class IsNotObjectError extends Error {
+class IsNotObjectError extends Error {
     constructor(attribute = 'Value') {
         super(attribute);
 
@@ -11,3 +11,5 @@ export default class IsNotObjectError extends Error {
         this.date = new Date();
     }
 }
+
+module.exports = { IsNotObjectError };

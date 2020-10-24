@@ -1,13 +1,12 @@
-import IdNotAllowedError from "../errors/IdNotAllowed.error.js";
-import IdNotFoundError from "../errors/IdNotFound.error.js";
-import IsNotArrayError from "../errors/IsNotArray.error.js";
-import IsNotNumberError from "../errors/IsNotNumber.error.js";
-import IsNotObjectError from "../errors/IsNotObject.error.js";
-import IsNotStringError from "../errors/IsNotString.error.js";
-import { hasAttr, hasAttrFilter } from "./defaultFunctions.js";
+const { IdNotAllowedError } = require("../errors/IdNotAllowed.error.js");
+const { IdNotFoundError } = require("../errors/IdNotFound.error.js");
+const { IsNotArrayError } = require("../errors/IsNotArray.error.js");
+const { IsNotNumberError } = require("../errors/IsNotNumber.error.js");
+const { IsNotObjectError } = require("../errors/IsNotObject.error.js");
+const { IsNotStringError } = require("../errors/IsNotString.error.js");
+const defaultFunctions = require("./defaultFunctions.js");
 
-
-export function objectInArrayContainsId(array) {
+function objectInArrayContainsId(array) {
     try {
         if (!Array.isArray(array)) {
             throw new IsNotArrayError();
@@ -33,28 +32,28 @@ export function objectInArrayContainsId(array) {
     }
 }
 
-export function isObject(obj) {
+function isObject(obj) {
     if (typeof obj == 'object' && !Array.isArray(obj)) {
         return true;
     }
     return false;
 }
 
-export function isArray(array) {
+function isArray(array) {
     if (Array.isArray(array)) {
         return true;
     }
     return false;
 }
 
-export function isStringAndNotId(field, idName) {
+function isStringAndNotId(field, idName) {
     if (typeof field == 'string' && field.toLowerCase() != idName.toLowerCase()) {
         return true;
     }
     return false;
 }
 
-export function isString(str) {
+function isString(str) {
     if (typeof str == 'string') {
         return true;
     }
@@ -66,7 +65,7 @@ function validateArrays(mainObj) {
         if (!Array.isArray(mainObj.array)) {
             throw new IsNotArrayError('main.array');
         }
-        mainObj.attributes = (!hasAttr(mainObj, 'attributes')) ? [] : mainObj.attributes;
+        mainObj.attributes = (!defaultFunctions.hasAttr(mainObj, 'attributes')) ? [] : mainObj.attributes;
         if (!Array.isArray(mainObj.attributes)) {
             throw new IsNotArrayError('main.attribute');
         }
@@ -88,8 +87,8 @@ function validateArrays(mainObj) {
     return mainObj;
 }
 
-export function initializeVariables(mainObj) {
-    if (hasAttrFilter(mainObj, 'array')) {
+function initializeVariables(mainObj) {
+    if (defaultFunctions.hasAttrFilter(mainObj, 'array')) {
         mainObj = validateArrays(mainObj);
 
         if (mainObj.nameId && typeof mainObj.nameId != 'string') {
@@ -106,3 +105,11 @@ export function initializeVariables(mainObj) {
 
     return mainObj;
 }
+
+module.exports.objectInArrayContainsId = objectInArrayContainsId;
+module.exports.isObject = isObject;
+module.exports.isArray = isArray;
+module.exports.isStringAndNotId = isStringAndNotId;
+module.exports.isString = isString;
+module.exports.initializeVariables = initializeVariables;
+module.exports.validateArrays = validateArrays;

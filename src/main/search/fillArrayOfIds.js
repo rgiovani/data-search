@@ -1,19 +1,20 @@
-import { removeRedundancyFromStringArray } from '../../utils/shared/functions/defaultFunctions.js';
-import { isArray } from '../../utils/shared/functions/validateTypes.js';
-import { dataset } from '../dataSet/generateDataset.js';
+const defaultFunctions = require('../../utils/shared/functions/defaultFunctions.js');
+const validate = require('../../utils/shared/functions/validateTypes.js');
+const generate = require('../dataSet/generateDataset.js');
 
-export function fillArrayOfIds(idsFounded, highestValue) {
-    const res = isArray(idsFounded);
-    if (res) {
+function fillArrayOfIds(idsFounded, highestValue) {
+    if (validate.isArray(idsFounded)) {
         if (highestValue != 0) {
-            dataset.array.forEach(item => {
+            generate.dataset.array.forEach(item => {
                 if (item.totalSearchesFound === highestValue) {
                     idsFounded.push(item.id)
                 }
                 item.totalSearchesFound = 0;
             });
-            idsFounded = removeRedundancyFromStringArray(idsFounded, 0);
+            idsFounded = defaultFunctions.removeRedundancyFromStringArray(idsFounded, 0);
             return idsFounded;
         }
     }
 }
+
+module.exports.fillArrayOfIds = fillArrayOfIds;

@@ -1,8 +1,8 @@
-import { removeRedundancyFromStringArray } from '../../utils/shared/functions/defaultFunctions.js';
-import { isString } from '../../utils/shared/functions/validateTypes.js';
-import { mainAttributes } from './verifyAtribute.js';
+const defaultFunctions = require('../../utils/shared/functions/defaultFunctions.js');
+const validateTypes = require('../../utils/shared/functions/validateTypes.js');
+const verify = require('./verifyAtribute.js');
 
-export let attributeBox = {
+let attributeBox = {
     _items: [],
     get items() {
         return this._items;
@@ -10,14 +10,14 @@ export let attributeBox = {
     set items(items) {
         this._items = items;
     },
-    add: function(obj, attribute) {
-        if (isString(obj[attribute]) && isNaN(Number(attribute))) {
+    add: function (obj, attribute) {
+        if (validateTypes.isString(obj[attribute]) && isNaN(Number(attribute))) {
             this._items.push(attribute);
         }
     }
 }
 
-export const tmp = {
+let tmp = {
     _tags: [],
     get tags() {
         return this._tags;
@@ -27,7 +27,7 @@ export const tmp = {
     }
 };
 
-export const collection = {
+let collection = {
     _name: undefined,
     get name() {
         return this._name;
@@ -37,15 +37,30 @@ export const collection = {
     }
 };
 
-export function create(obj, idName, size, params) {
+function create(obj, idName, size, params) {
     attributeBox.items = [];
     obj.totalSearchesFound = 0;
     obj.tags = [];
     Object.keys(obj).forEach((attribute) => {
-        mainAttributes(obj, attribute, idName, size, params);
+        verify.mainAttributes(obj, attribute, idName, size, params);
     });
     obj.tags = tmp.tags;
     tmp.tags = [];
-    attributeBox.items = removeRedundancyFromStringArray(attributeBox.items, 0);
+    attributeBox.items = defaultFunctions.removeRedundancyFromStringArray(attributeBox.items, 0);
     return obj;
 }
+
+function getNameCollection() {
+    return collection.name;
+}
+
+function setNameCollection(name) {
+    collection.name = name;
+}
+
+module.exports.create = create;
+module.exports.tmp = tmp;
+// module.exports.getNameCollection = getNameCollection;
+// module.exports.setNameCollection = setNameCollection;
+module.exports.collection = collection;
+module.exports.attributeBox = attributeBox;

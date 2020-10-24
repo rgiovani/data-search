@@ -1,4 +1,4 @@
-# **Data-search-js 1.2.6**
+# **Data-search-js 1.3.0**
 
 <img src="./icon.png" width="250">
 
@@ -18,6 +18,8 @@ This is a library that aims to perform a search for data in an array of objects.
       - [Using getDistance](#using-getdistance)
       - [Using setDistance](#using-setdistance)
       - [Using resetDistance](#using-resetdistance)
+      - [Using getLatestSearchedIds](#using-getlatestsearchedids)
+      
   - [Check the dependencies](#check-the-dependencies)
   - [Next releases](#next-releases)
 
@@ -26,14 +28,7 @@ This is a library that aims to perform a search for data in an array of objects.
 
   - npm install data-search
   - yarn add data-search (recommended)
-
-<br/>
-
-  **This library use es6.**
-
-  *In your package.json use:*
-      "type": "module"
-
+  
 <br/>
 <br/>
 
@@ -62,8 +57,6 @@ I call this object: 'main'.
 
 > Code:
 ```
-import { dataSetGenerate, search } from 'data-search';
-
 const myArray = [{
         id: 1,
         title: 'Lord of the Rings',
@@ -174,9 +167,7 @@ console.log(result2);
   {       
     id: 2,
     title: 'Fury',
-    genre: 'WAR',
-    totalSearchesFound: 0,
-    tags: [ 'fury', 'war' ]
+    genre: 'WAR'
   }
 ]
 ```
@@ -212,9 +203,7 @@ search('lords ring war');
   {
     id: 1,
     title: 'Lord of the Rings',
-    genre: 'ADVENTURE',
-    totalSearchesFound: 0,
-    tags: [ 'lord', 'of', 'the', 'rings', 'adventure' ]
+    genre: 'ADVENTURE'
   }
 ]
 ```
@@ -232,16 +221,12 @@ search('lords ring war', 'genre');
   {
     id: 1,
     title: 'Lord of the Rings',
-    genre: 'ADVENTURE',
-    totalSearchesFound: 0,
-    tags: [ 'lord', 'of', 'the', 'rings', 'adventure' ]
+    genre: 'ADVENTURE'
   },
   {
     id: 2,
     title: 'Fury',
-    genre: 'WAR',
-    totalSearchesFound: 0,
-    tags: [ 'fury', 'war' ]
+    genre: 'WAR'
   }
 ]
 ```
@@ -315,9 +300,7 @@ console.log(search('fu'));
   {
     id: 2,
     title: 'Fury',
-    genre: 'WAR',
-    totalSearchesFound: 0,
-    tags: [ 'fury', 'war' ]
+    genre: 'WAR'
   }
 ]
 ```
@@ -342,6 +325,19 @@ console.log(getSearchDistance());
 - Resets the 'min' and 'max' values to the default values.
 'min' = 0.3.
 'max' = '0.85.
+
+### **Using getLatestSearchedIds**
+- getLatestSearchedIds()
+- returns an object with an array of ids found by the search.
+
+> Code:
+```
+getLatestSearchedIds();
+```
+> Code:
+```
+{ ids: [ 2 ] }
+```
 
 ## **Check the dependencies:**
   - https://www.npmjs.com/package/data-search

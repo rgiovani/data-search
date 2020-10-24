@@ -1,51 +1,67 @@
-import { similarStrings, treatString } from '../../utils/shared/functions/defaultFunctions.js';
-import { getObjectBySimilarIds } from './getObjectBySimilarIds.js';
-import { findSimilarMatches } from './findSimilarMatches.js';
-import { fillArrayOfIds } from './fillArrayOfIds.js';
-import { dataset } from '../dataSet/generateDataset.js'
-import natural from 'natural';
-import { attributeBox } from '../dataSet/create.js';
+const defaultFunctions = require('../../utils/shared/functions/defaultFunctions.js');
+const gets = require('./getObjectBySimilarIds.js');
+const similar = require('./findSimilarMatches.js');
+const fill = require('./fillArrayOfIds.js');
+const generate = require('../dataSet/generateDataset.js');
+const natural = require('natural');
+const create = require('../dataSet/create.js');
 
 const metaphone = natural.Metaphone;
 
 let mainInfoFromObject = [];
 let similarsWords = [];
-const similarIds = { message: 'OK', ids: [] };
-const idsFound = [];
+let similarIds = { ids: [] };
+let idsFound = [];
 let foundInMainInfo = 0;
 let highestValue = 0;
 
-export function doSearch(field, priorityAttribute) {
+function doSearch(field, priorityAttribute) {
     let res;
-
-    if (!attributeBox.items.includes(priorityAttribute)) {
-        priorityAttribute = attributeBox.items[0];
+    mainInfoFromObject = [];
+    similarsWords = [];
+    similarIds = { ids: [] };
+    idsFound = [];
+    foundInMainInfo = 0;
+    highestValue = 0;
+    if (!create.attributeBox.items.includes(priorityAttribute)) {
+        priorityAttribute = field;
     }
-
-    const arrayInput = treatString(field, true);
-    dataset.array.forEach(object => {
-        similarsWords = findSimilarMatches(arrayInput, object.tags);
+    const arrayInput = defaultFunctions.treatString(field, true);
+    generate.dataset.array.forEach(object => {
+        similarsWords = similar.findSimilarMatches(arrayInput, object.tags);
         if (similarsWords[0]) {
             compareWordsWithTags(object, priorityAttribute);
         }
     });
 
-    similarIds.ids = fillArrayOfIds(idsFound, highestValue);
-    similarIds.message = (similarIds.ids && similarIds.ids.length > 0) ? 'OK' : 'EMPTY';
-    res = getObjectBySimilarIds(similarIds.ids);
-    if (res)
-        return res;
-    else
+    similarIds.ids = fill.fillArrayOfIds(idsFound, highestValue);
+    res = gets.getObjectBySimilarIds(similarIds.ids);
+    if (res) {
+        const copy = [];
+        res.forEach(item => {
+            const obj = {...item };
+            delete obj.tags;
+            delete obj.totalSearchesFound;
+            copy.push(obj);
+        })
+
+        return copy;
+    } else {
         return [];
+    }
 }
 
 function compareWordsWithTags(object, priorityAttribute) {
     similarsWords.forEach(word => {
         object.tags.forEach(tag => {
             if (metaphone.compare(tag, word)) {
-                mainInfoFromObject = [];
-                mainInfoFromObject.push(object[priorityAttribute]);
-                if (similarStrings(word.toString(), mainInfoFromObject, 0.95)) {
+                if (object[priorityAttribute]) {
+                    mainInfoFromObject = defaultFunctions.transformStringInArray(object[priorityAttribute]);
+                } else if (priorityAttribute) {
+                    mainInfoFromObject = defaultFunctions.transformStringInArray(priorityAttribute);
+                }
+
+                if (defaultFunctions.similarStrings(word.toString(), mainInfoFromObject, 0.95)) {
                     idsFound.push(object.id);
                     foundInMainInfo++;
                 }
@@ -59,6 +75,10 @@ function compareWordsWithTags(object, priorityAttribute) {
     return similarsWords;
 }
 
-export function findLatestSearchedIds() {
+function findLatestSearchedIds() {
     return similarIds;
 }
+
+
+module.exports.findLatestSearchedIds = findLatestSearchedIds;
+module.exports.doSearch = doSearch;
