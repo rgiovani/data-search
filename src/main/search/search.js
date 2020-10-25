@@ -56,8 +56,9 @@ function compareWordsWithTags(object, priorityAttribute) {
                 }
 
                 if (defaultFunctions.similarStrings(word.toString(), mainInfoFromObject, 0.95)) {
-                    idsFound.push(object.id);
+                    //idsFound.push(object.id);
                     foundInMainInfo++;
+                    object.totalSearchesFound++;
                 }
                 object.totalSearchesFound++;
             }
