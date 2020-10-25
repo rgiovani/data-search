@@ -1,4 +1,4 @@
-# **Data-search-js 1.3.1**
+# **Data-search-js 1.3.2**
 
 <img src="./icon.png" width="250">
 
@@ -12,7 +12,7 @@ This is a library that aims to perform a search for data in an array of objects.
   - [Dataset](#dataset)
     - [Using getDataset](#using-getdataset)
   - [Search](#search)
-    - [And when nothing is found?](#and-when-nothing-is-found?)
+    - [And when nothing is found?](#and-when-nothing-is-found)
     - [Priority attribute](#priority-attribute)
     - [Tips to use the priority attribute](#tip-to-use-the-priority-attribute)
     - [Search distance](#search-distance)
