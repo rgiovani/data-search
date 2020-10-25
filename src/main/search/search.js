@@ -15,8 +15,8 @@ let idsFound = [];
 let foundInMainInfo = 0;
 let highestValue = 0;
 
-function doSearch(field, priorityAttribute) {
-    let res;
+function doSearch(all, field, priorityAttribute) {
+    let res = [];
     mainInfoFromObject = [];
     similarsWords = [];
     similarIds = { ids: [] };
@@ -36,18 +36,12 @@ function doSearch(field, priorityAttribute) {
 
     similarIds.ids = fill.fillArrayOfIds(idsFound, highestValue);
     res = gets.getObjectBySimilarIds(similarIds.ids);
-    if (res) {
-        const copy = [];
-        res.forEach(item => {
-            const obj = {...item };
-            delete obj.tags;
-            delete obj.totalSearchesFound;
-            copy.push(obj);
-        })
-
-        return copy;
+    if (res.length > 0) {
+        return createCopyFromArray(res, false);
+    } else if (all == true) {
+        return createCopyFromArray(generate.dataset.array, true);
     } else {
-        return [];
+        return {};
     }
 }
 
@@ -77,6 +71,25 @@ function compareWordsWithTags(object, priorityAttribute) {
 
 function findLatestSearchedIds() {
     return similarIds;
+}
+
+function createCopyFromArray(array, notfound) {
+    const res = {
+        message: 'OK',
+        result: []
+    };
+    if (notfound) {
+        res.message = 'NOT_FOUND'
+    }
+    const copy = [];
+    array.forEach(item => {
+        const obj = {...item };
+        delete obj.tags;
+        delete obj.totalSearchesFound;
+        copy.push(obj);
+    })
+    res.result = copy;
+    return res;
 }
 
 

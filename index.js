@@ -9,8 +9,8 @@ const dataset = require('./src/main/dataSet/generateDataset.js');
  * This function generates a data set based on an array of objects. **ID field required on each object**.
  * @param {Object} main Main object with options.
  * @param {[object]} main.array Array of objects.
- * @param {string} main.nameId Name of the identification field in your objects - \'id\' by default.
- * @param {number} main.wordSize Size of the words you want to filter to generate the tags. \'2\' by default
+ * @param {string} main.nameId Name of the identification field in your objects. (**\'id\' by default**)
+ * @param {number} main.wordSize Size of the words you want to filter to generate the tags. (**\'2\' by default**)
  * @param {[string]} main.attributes Name of the attributes on the objects you need to generate the tags.
  * @return Array of objects with an array of tags on each object in the array.
  */
@@ -34,19 +34,33 @@ function dataSetGenerate(main) {
  * - by default, it takes the first attribute that is considered a string in the object.
  * - Ignores identifier (ID) attributes and take the next attribute.
  * @param  input User input in a search bar.
- * @param  priorityAttribute Attribute that the search will always give priority.
- * @return Returns an array with the found objects.
+ * @param  all When nothing is found: --- (**false by default**) 
+ * - [**true**] changes the return to an array with all objects from dataset.
+ * - [**false**] changes the return to an empty array.
+ * @param  priorityAttribute Attribute that the search will always give priority. (**\'empty string\' by default**)
+ * @return Returns an array with the found objects. 
  */
-function search(input, priorityAttribute) {
+function search(input, all, priorityAttribute) {
     try {
+        if (all) {
+            if (typeof all != 'boolean') {
+                throw new Error('\'all\' cannot be different from boolean type.');
+            }
+        } else {
+            all = false;
+        }
         if (!validateType.isString(input)) {
             throw new IsNotStringError('input');
         }
         const field = (input) ? input : '';
         priorityAttribute = (priorityAttribute) ? priorityAttribute : '';
-        return doSearch(field, priorityAttribute);
+        return doSearch(all, field, priorityAttribute);
     } catch (e) {
-        console.error(`\n[${e.type}] - ${e.description}`);
+        if (e.type && e.description) {
+            console.error(`\n[${e.type}] - ${e.description}`);
+        } else {
+            console.error(e.message)
+        }
 
     }
 }
@@ -68,8 +82,8 @@ function getSearchDistance() {
 /**
  * This function allows changing the maximum and minimum tolerance that the search needs to bring results.
  * The search result will be the max value or the distance value between 'max' and 'min'.
- * @param  min Minimum tolerance value. (0.30 by default).
- * @param  max Max tolerance value. (0.85 by default).
+ * @param  min Minimum tolerance value. (**0.30 by default**).
+ * @param  max Max tolerance value. (**0.85 by default**).
  */
 function setSearchDistance(min, max) {
     similar.setMaxMinDistance(min, max);
