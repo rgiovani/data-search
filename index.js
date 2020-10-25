@@ -12,6 +12,7 @@ const dataset = require('./src/main/dataSet/generateDataset.js');
  * @param {string} main.nameId Name of the identification field in your objects. (**\'id\' by default**)
  * @param {number} main.wordSize Size of the words you want to filter to generate the tags. (**\'2\' by default**)
  * @param {[string]} main.attributes Name of the attributes on the objects you need to generate the tags.
+ * @param {[string]} main.ignoreInTags The tags ignore any words in the object that look like any words in this array.
  * @return Array of objects with an array of tags on each object in the array.
  */
 function dataSetGenerate(main) {

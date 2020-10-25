@@ -41,7 +41,7 @@ function doSearch(all, field, priorityAttribute) {
     } else if (all == true) {
         return createCopyFromArray(generate.dataset.array, true);
     } else {
-        return {};
+        return { message: 'NOT_FOUND', result: [] };
     }
 }
 

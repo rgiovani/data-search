@@ -2,6 +2,8 @@ const defaultFunctions = require('../../utils/shared/functions/defaultFunctions.
 const validateTypes = require('../../utils/shared/functions/validateTypes.js');
 const verify = require('./verifyAtribute.js');
 
+let tagsToIgnore = [];
+
 let attributeBox = {
     _items: [],
     get items() {
@@ -10,7 +12,7 @@ let attributeBox = {
     set items(items) {
         this._items = items;
     },
-    add: function (obj, attribute) {
+    add: function(obj, attribute) {
         if (validateTypes.isString(obj[attribute]) && isNaN(Number(attribute))) {
             this._items.push(attribute);
         }
@@ -37,7 +39,8 @@ let collection = {
     }
 };
 
-function create(obj, idName, size, params) {
+function create(obj, idName, size, ignoreInTags, params) {
+    tagsToIgnore = ignoreInTags;
     attributeBox.items = [];
     obj.totalSearchesFound = 0;
     obj.tags = [];
@@ -50,13 +53,17 @@ function create(obj, idName, size, params) {
     return obj;
 }
 
-function getNameCollection() {
-    return collection.name;
+function getTagsToIgnore() {
+    return tagsToIgnore;
 }
 
-function setNameCollection(name) {
-    collection.name = name;
-}
+// function getNameCollection() {
+//     return collection.name;
+// }
+
+// function setNameCollection(name) {
+//     collection.name = name;
+// }
 
 module.exports.create = create;
 module.exports.tmp = tmp;
@@ -64,3 +71,4 @@ module.exports.tmp = tmp;
 // module.exports.setNameCollection = setNameCollection;
 module.exports.collection = collection;
 module.exports.attributeBox = attributeBox;
+module.exports.getTagsToIgnore = getTagsToIgnore;

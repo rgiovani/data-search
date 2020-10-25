@@ -1,4 +1,4 @@
-const create = require('./create.js');
+const inCreate = require('./create.js');
 const defaultFunctions = require('../../utils/shared/functions/defaultFunctions.js');
 const validateTypes = require('../../utils/shared/functions/validateTypes.js');
 
@@ -6,8 +6,11 @@ function fillTags(field, size) {
     const wordsArray = defaultFunctions.treatString(field, true, size);
 
     wordsArray.forEach(word => {
-        if (!create.tmp.tags.includes(word.toLowerCase()) && word.length >= size) {
-            create.tmp.tags.push(word.toString().toLowerCase());
+        const tagsToIgnore = inCreate.getTagsToIgnore();
+        if (!inCreate.tmp.tags.includes(word.toLowerCase()) && word.length >= size) {
+            if (!tagsToIgnore.includes(word.toLowerCase())) {
+                inCreate.tmp.tags.push(word.toString().toLowerCase());
+            }
         }
     });
 
@@ -15,7 +18,7 @@ function fillTags(field, size) {
 
 function identifyTags(params, attribute, obj, size, idName) {
     params.forEach(paramAtribute => {
-        if (defaultFunctions.verifyParam(attribute, paramAtribute, create.collection.name)) {
+        if (defaultFunctions.verifyParam(attribute, paramAtribute, inCreate.collection.name)) {
             switch (typeof obj[attribute]) {
                 case 'string':
                     if (validateTypes.isStringAndNotId(attribute.toLowerCase(), idName.toLowerCase())) {
@@ -25,7 +28,7 @@ function identifyTags(params, attribute, obj, size, idName) {
                 case 'object':
                     if (validateTypes.isArray(obj[attribute])) {
                         obj[attribute].forEach(item => {
-                            (validateTypes.isString(item)) ? fillTags(item.toString(), size) : item;
+                            (validateTypes.isString(item)) ? fillTags(item.toString(), size): item;
                         })
                     }
                     break;

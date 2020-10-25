@@ -1,4 +1,4 @@
-# **Data-search-js 1.3.2**
+# **Data-search-js 1.3.3**
 
 <img src="./icon.png" width="250">
 
@@ -10,6 +10,7 @@ This is a library that aims to perform a search for data in an array of objects.
 
 
   - [Dataset](#dataset)
+    - [Ignoring words](#ignoring-words)
     - [Using getDataset](#using-getdataset)
   - [Search](#search)
     - [And when nothing is found?](#and-when-nothing-is-found)
@@ -51,6 +52,8 @@ I call this object: 'main'.
 > **`nameId : string` // name of the object ID field.**
 
 > **`attributes: [string]` // name of the attributes** you want to filter **in array format.**
+
+> **`ignoreInTags: [string]` // The tags ignore any words in the object that look like any words in this array.**
 
 >` }`
 
@@ -105,6 +108,42 @@ console.log(result)
 - The result will be an array of objects where, for each object in that array, an attribute called 'tags' will be added, which is an array with the filtered attribute values. 
 - \'totalSearchesFound\' will also be added.
 - Both attributes will be used as internal parameters by the search functionality.
+
+## **Ignoring words**
+- If a word is not wanted when generating the dataset, you can ignore it, further refining the search results and leaving it as you need it.
+- To do this, simply pass in the string array \'ignoreInTags\' which words you want the tags to ignore.
+- The tags ignore any words in the object that look like any words in this array.
+
+> Code
+```
+const myArray = [{
+    id: 1,
+    title: 'Lord of the Rings',
+    genre: 'ADVENTURE'
+}]
+
+const result = dataSetGenerate({
+    array: myArray,
+    attributes: ['title', 'genre'],
+    ignoreInTags: ['rings', 'lord']
+})
+
+console.log(result)
+```
+
+> Output
+```
+[
+  {
+    id: 1,
+    title: 'Lord of the Rings',
+    genre: 'ADVENTURE',
+    totalSearchesFound: 0,
+    tags: [ 'of', 'the', 'adventure' ]
+  }
+]
+```
+- As you can see, my object's tags don't have 'rings' and 'lord'
 
 ### **Using getDataset**
 - getDataset()
@@ -191,7 +230,7 @@ The \'all\' parameter is of the boolean type so when it is:
 - **true:** changes the return to an array with all objects from dataset.
 - **false:** changes the return to an empty array.
 
-**IMPORTANT:** These returns use the \'all\' parameter when nothing is found by the search.
+**IMPORTANT:** These returns use the \'all\' parameter when nothing is found by the search. But don't worry, it is not necessary to pass this parameter if you don't want to, it will always be false if it is not passed true.
 
 > Code:
 ```
