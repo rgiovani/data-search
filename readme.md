@@ -1,4 +1,4 @@
-# **Data-search-js 1.3.4**
+# **Data-search-js 1.3.6**
 
 <img src="./icon.png" width="250">
 
@@ -247,7 +247,7 @@ The \'all\' parameter is of the boolean type so when it is:
 }
 ```
 
-## **Priority attribute**
+## **Filter by value in the attribute**
 
 It is used when an object does not have enough information to be returned by the first parameter of the search function, but it needs to be returned, because the object has an attribute and this attribute has the necessary value for the return.
 
@@ -266,7 +266,7 @@ It is used when an object does not have enough information to be returned by the
   genre: 'WAR'
 }
 
-console.log(search('fury war lords'));
+console.log(search('fury war adventure'));
 ```
 
 > Output:
@@ -282,38 +282,37 @@ console.log(search('fury war lords'));
   ] 
 }
 ```
-  Note that the **return will only be from the object with id 2, this happens because the object with id 2 has more information that matches what you are looking for**. However, if you still think that the function should return the object with id 1 because the object contains 'lord' and you also typed 'lords' in the search, then, **you must tell the search what attribute it should treat as priority**, whenever the search function finds a value (in the attribute defined as priority) that matches exactly what you typed, this object will be returned along with the others:
+  Note that the **return will only be from the object with id 2, this happens because the object with id 2 has more information that matches what you are looking for**. However, if you still think that the function should return the object with id 1 because the object contains 'adventure' and you also typed 'adventure' in the search, then, **you must tell the search what the value of the attribute it should treat as priority**, whenever the search function finds a value that matches exactly what you typed, this object will be returned along with the others:
 
 <br/>
 
 > Code: *in the second parameter of the search() function put the name of your attribute*
 ```
-console.log(search('fury war lords', false, 'title'));
+console.log(search('fury war adventure', false, 'adventure'));
 ```
 > Output:
 ```
 {
   message: 'OK',
   result: [
-    { id: 1, title: 'Lord of the Rings', genre: 'ADVENTURE' },
-    { id: 2, title: 'Fury', genre: 'WAR' }
+    { id: 2, title: 'Fury', genre: 'WAR' },
+    { id: 1, title: 'Lord of the Rings', genre: 'ADVENTURE' }
   ]
 }
 ```
 Now note that both objects have been returned.
-Even if the first object does not have all the information you typed in, it still has 'lord' in the priority attribute 'title' so now it is returned.
+Even if the first object does not have all the information you typed in, it still has 'ADVENTURE' in the genre 'title' so now it is returned.
 
 <br/>
 
-## **Tip to use the priority attribute**
+## **Tip to use the 'Filter by value'**
 
 - The idea for the use of this priority attribute could be in the case of your application has search not only by field but also by filters, in the case of filters of genre of films (adventure, action etc...). 
 - So besides waiting for the user to type something, the application can also wait for him to pass a filter. 
-- You then concatenate the values: field + ' ' + filterName, pass the result of the concatenation in the search and say which attribute you are prioritizing.
 - Then if he writes 'lords ring' in the search bar and selects 'war' in the filter the search would look something like this:
 ```
-const res = 'lords ring' + ' ' + 'war';
-search( res, false, 'genre');
+const res = 'lords ring';
+search( res, false, 'war');
 ```
 - The result would be the objects searched by typing but with priorities in the filters.
 

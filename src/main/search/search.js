@@ -15,7 +15,8 @@ let idsFound = [];
 let foundInMainInfo = 0;
 let highestValue = 0;
 
-function doSearch(all, field, priorityAttribute) {
+
+function doSearch(all, field, filterByValue) {
     let res = [];
     mainInfoFromObject = [];
     similarsWords = [];
@@ -23,14 +24,13 @@ function doSearch(all, field, priorityAttribute) {
     idsFound = [];
     foundInMainInfo = 0;
     highestValue = 0;
-    if (!create.attributeBox.items.includes(priorityAttribute)) {
-        priorityAttribute = field;
-    }
-    const arrayInput = defaultFunctions.treatString(field, true);
+
+
+    const arrayInput = defaultFunctions.treatString(field + ' ' + filterByValue, true);
     generate.dataset.array.forEach(object => {
         similarsWords = similar.findSimilarMatches(arrayInput, object.tags);
         if (similarsWords[0]) {
-            compareWordsWithTags(object, priorityAttribute);
+            compareWordsWithTags(object, field, filterByValue);
         }
     });
 
@@ -45,18 +45,18 @@ function doSearch(all, field, priorityAttribute) {
     }
 }
 
-function compareWordsWithTags(object, priorityAttribute) {
+function compareWordsWithTags(object, field, filterByValue) {
     similarsWords.forEach(word => {
         object.tags.forEach(tag => {
             if (metaphone.compare(tag, word)) {
-                if (object[priorityAttribute]) {
-                    mainInfoFromObject = defaultFunctions.transformStringInArray(object[priorityAttribute]);
-                } else if (priorityAttribute) {
-                    mainInfoFromObject = defaultFunctions.transformStringInArray(priorityAttribute);
+                if (metaphone.compare(tag, filterByValue)) {
+                    mainInfoFromObject = defaultFunctions.transformStringInArray(filterByValue);
+                    idsFound.push(object.id);
+                    object.totalSearchesFound--;
+                } else if (field) {
+                    mainInfoFromObject = defaultFunctions.transformStringInArray(field);
                 }
-
                 if (defaultFunctions.similarStrings(word.toString(), mainInfoFromObject, 0.95)) {
-                    //idsFound.push(object.id);
                     foundInMainInfo++;
                     object.totalSearchesFound++;
                 }

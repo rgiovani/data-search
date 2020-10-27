@@ -9,7 +9,6 @@ function fillArrayOfIds(idsFounded, highestValue) {
                 if (item.totalSearchesFound === highestValue) {
                     idsFounded.push(item.id)
                 }
-                item.totalSearchesFound = 0;
             });
             idsFounded = defaultFunctions.removeRedundancyFromStringArray(idsFounded, 0);
             return idsFounded;

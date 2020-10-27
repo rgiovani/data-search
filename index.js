@@ -38,10 +38,10 @@ function dataSetGenerate(main) {
  * @param  all When nothing is found: --- (**false by default**) 
  * - [**true**] changes the return to an array with all objects from dataset.
  * - [**false**] changes the return to an empty array.
- * @param  priorityAttribute Attribute that the search will always give priority. (**\'empty string\' by default**)
+ * @param  filterByValue Value that the search will always give priority. (**\'empty string\' by default**)
  * @return Returns an array with the found objects. 
  */
-function search(input, all, priorityAttribute) {
+function search(input, all, filterByValue) {
     try {
         if (all) {
             if (typeof all != 'boolean') {
@@ -54,8 +54,8 @@ function search(input, all, priorityAttribute) {
             throw new IsNotStringError('input');
         }
         const field = (input) ? input : '';
-        priorityAttribute = (priorityAttribute) ? priorityAttribute : '';
-        return doSearch(all, field, priorityAttribute);
+        filterByValue = (filterByValue) ? filterByValue : '';
+        return doSearch(all, field, filterByValue);
     } catch (e) {
         if (e.type && e.description) {
             console.error(`\n[${e.type}] - ${e.description}`);
