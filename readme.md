@@ -14,11 +14,11 @@ This is a library that aims to perform a search for data in an array of objects.
     - [Using getDataset](#using-getdataset)
   - [Search](#search)
     - [And when nothing is found?](#and-when-nothing-is-found)
-    - [Priority attribute](#priority-attribute)
-    - [Tips to use the priority attribute](#tip-to-use-the-priority-attribute)
+    - [Filter by value in object attributes](#filter-by-value-in-object-attributes)
+    - [Tips to use the filter by value](#tip-to-use-the-filter-by-value)
     - [Search distance](#search-distance)
-      - [Using getDistance](#using-getdistance)
-      - [Using setDistance](#using-setdistance)
+      - [Using getSearchDistance](#using-getSearchDistance)
+      - [Using setSearchDistance](#using-setSearchDistance)
       - [Using resetDistance](#using-resetdistance)
       - [Using getLatestSearchedIds](#using-getlatestsearchedids)
       
@@ -200,13 +200,14 @@ So let's say you want to search for one of those objects. For this you type a te
 
 ``` search(datasetArray, input, all, filterByValue) ```
 
-For this, in each search() it is necessary to pass:
-- The result of the dataSetGenerate function is passed in the first parameter, 
-this will be the basis for the search.
-- In the second parameter, what was entered by the user is passed.
-**It is not necessary to pass, but if you need:**
-- In the third parameter, it is passed if the function will return everything when no object is found(true or false).
-- In the fourth parameter of the search() function, place the name of the present value within the attribute that will be treated as a priority.
+For this, in each search function call it is appropriate to pass in the:
+- **first parameter**, the return of the dataSetGenerate function is passed. This will be the basis of the research.
+- **second parameter**, a 'string' is passed with what was searched by the user.
+
+**It is not necessary to pass the other parameters, but if necessary, in the:**
+
+- **third parameter**, it is passed if the function will return all objects when no object is found(**true** or **false**).
+- **fourth parameter**, place the name of the present value within the attribute of an object that will be treated as a priority by the function's return.
 
 **IMPORTANT:** The result of this function (datasetGenerate) will always be an array of objects.
 
@@ -257,7 +258,7 @@ The \'all\' parameter is of the boolean type so when it is:
 - **true:** changes the return to an array with all objects from dataset.
 - **false:** changes the return to an empty array.
 
-**IMPORTANT:** These returns use the \'all\' parameter when nothing is found by the search. But don't worry, it is not necessary to pass this parameter if you don't want to, it will always be false if it is not passed true.
+**IMPORTANT:** It is not necessary to pass this parameter \'all\' if you don't want to, it will always be false if it is not passed true.
 
 > Code:
 ```
@@ -274,7 +275,7 @@ The \'all\' parameter is of the boolean type so when it is:
 }
 ```
 
-## **Filter by value in the attribute**
+## **Filter by value in object attributes**
 
 It is used when an object does not have enough information to be returned by the first parameter of the search function, but it needs to be returned, because the object has an attribute and this attribute has the necessary value for the return.
 
@@ -315,7 +316,7 @@ console.log(search(datasetResult,'fury war adventure'));
   ] 
 }
 ```
-  Note that the **return will only be from the object with id 2, this happens because the object with id 2 has more information that matches what you are looking for**. However, if you still think that the function should return the object with id 1 because the object contains 'adventure' and you also typed 'adventure' in the search, then, **you must tell the search what the value of the attribute it should treat as priority**, whenever the search function finds a value that matches exactly what you typed, this object will be returned along with the others:
+  Note that the **return will only be from the object with id 2, this happens because the object with id 2 has more information that matches what you are looking for**. However, if you still think that the function should return the object with id 1 because the object contains 'adventure' and you also typed 'adventure' in the search, then, **you must tell the search what is the value that the search should always bring**, whenever the search function finds a value that matches exactly what you typed, this object will be returned along with the others:
 
 <br/>
 
@@ -334,20 +335,20 @@ console.log(search(datasetResult,'fury war adventure', false, 'adventure'));
 }
 ```
 Now note that both objects have been returned.
-Even if the first object does not have all the information you typed in, it still has 'ADVENTURE' in the genre 'title' so now it is returned.
+Even if the first object does not have all the information you typed in, it still has 'ADVENTURE' in the 'genre' so now it is returned.
 
 <br/>
 
 ## **Tip to use the 'Filter by value'**
 
-- The idea for the use of this priority attribute could be in the case of your application has search not only by field but also by filters, in the case of filters of genre of films (adventure, action etc...). 
+- The idea for using a value in an attribute could be if your application has a search not only for fields but also for filters, in the case of film genre filters (adventure, action, etc ...).
 - So besides waiting for the user to type something, the application can also wait for him to pass a filter. 
 - Then if he writes 'lords ring' in the search bar and selects 'war' in the filter the search would look something like this:
 ```
 const res = 'lords ring';
 search(datasetResult, res, false, 'war');
 ```
-- The result would be the objects searched by typing but with priorities in the filters.
+- The result would be the objects searched by typing but also bringing the result of the filters.
 
 ## **Search distance**
 
@@ -357,8 +358,8 @@ search(datasetResult, res, false, 'war');
   - If nothing is found, the search uses the value between 'max' and 'min' to find the words (typed in the search) that most closely match the object's tag array.
   - At this point the closer the 'min' is to 'max' or the 'max' to 'min', the lower the tolerance for the words in the search and the greater the probability of finding an object similar (or not) to the one requested.
 
-### **Using setDistance**
-- setDistance(min,max)
+### **Using setSearchDistance**
+- setSearchDistance(min,max)
 - This function allows changing the maximum and minimum tolerance that the search needs to bring results.
 - This function accepts only fractional numeric values between 0 and 1.
 
@@ -410,11 +411,12 @@ console.log(search(dataSetResult, 'fu'));
 }
 ```
 - Now the search tolerance is only 0.3 (0.9-0.6), increasing the possibility of finding objects even with wrong words or in half.
-[RECOMMENDED] - For a more accurate search, i recommend using 'max' as being greater than 8, and working on 'min' with values between 2 to 7.5.
 
-### **Using getDistance**
-- getDistance()
-- To find out what the 'min' and 'max' values are, use 'getdistance', this function returns an object with the updated 'min' and 'max' values:
+**[Recommended]** - For a more accurate search, i recommend using 'max' as being greater than 8, and working on 'min' with values between 2 to 7.5.
+
+### **Using getSearchDistance**
+- getSearchDistance()
+- To find out what the 'min' and 'max' values are, use 'getSearchDistance', this function returns an object with the updated 'min' and 'max' values:
 
 > Code:
 ```
