@@ -1,13 +1,12 @@
 const defaultFunctions = require('../../utils/shared/functions/defaultFunctions.js');
 const validateTypes = require('../../utils/shared/functions/validateTypes.js');
-const generate = require('../dataSet/generateDataset.js');
 
-function getObjectBySimilarIds(ids) {
+function getObjectBySimilarIds(ids, dataset) {
     const objectsFound = [];
     if (validateTypes.isArray(ids)) {
         if (ids) {
-            defaultFunctions.sortArrayOfObject(generate.dataset.array, -1, 'totalSearchesFound');
-            generate.dataset.array.forEach(object => {
+            defaultFunctions.sortArrayOfObject(dataset, -1, 'totalSearchesFound');
+            dataset.forEach(object => {
                 ids.forEach(id => {
                     if (object.id == id) {
                         objectsFound.push(object);

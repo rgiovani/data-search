@@ -1,4 +1,4 @@
-# **Data-search-js 1.3.6**
+# **Data-search-js 1.3.8**
 
 <img src="./icon.png" width="250">
 
@@ -198,13 +198,40 @@ console.log(info);
 
 So let's say you want to search for one of those objects. For this you type a text in the search function, this search can result in the return of one or more objects.
 
-``` search(input, all, priorityAttribute) ```
+``` search(datasetArray, input, all, filterByValue) ```
+
+For this, in each search() it is necessary to pass:
+- The result of the dataSetGenerate function is passed in the first parameter, 
+this will be the basis for the search.
+- In the second parameter, what was entered by the user is passed.
+**It is not necessary to pass, but if you need:**
+- In the third parameter, it is passed if the function will return everything when no object is found(true or false).
+- In the fourth parameter of the search() function, place the name of the present value within the attribute that will be treated as a priority.
+
+**IMPORTANT:** The result of this function (datasetGenerate) will always be an array of objects.
 
 <br/>
 
 > Code:
 ```
-const result2 = search('I want to watch fury');
+const myArray = [{
+        id: 1,
+        title: 'Lord of the Rings',
+        genre: 'ADVENTURE'
+    },
+    {
+        id: 2,
+        title: 'Fury',
+        genre: 'WAR'
+    }
+]
+
+const datasetResult = dataSetGenerate({
+    array: myArray,
+    attributes: ['title', 'genre']
+})
+
+const result2 = search(datasetResult, 'I want to watch fury');
 console.log(result2);
 ```
 > Output:
@@ -234,7 +261,7 @@ The \'all\' parameter is of the boolean type so when it is:
 
 > Code:
 ```
-  console.log(search('comedy', true));
+  console.log(search(datasetResult, 'comedy', true));
 ```
 > Output:
 ```
@@ -255,18 +282,24 @@ It is used when an object does not have enough information to be returned by the
 
 > Code:
 ```
-{
-  id: 1,
-  title: 'Lord of the Rings',
-  genre: 'ADVENTURE'
-},
-{
-  id: 2,
-  title: 'Fury',
-  genre: 'WAR'
-}
+const myArray = [{
+        id: 1,
+        title: 'Lord of the Rings',
+        genre: 'ADVENTURE'
+    },
+    {
+        id: 2,
+        title: 'Fury',
+        genre: 'WAR'
+    }
+]
 
-console.log(search('fury war adventure'));
+const datasetResult = dataSetGenerate({
+    array: myArray,
+    attributes: ['title', 'genre']
+})
+
+console.log(search(datasetResult,'fury war adventure'));
 ```
 
 > Output:
@@ -286,9 +319,9 @@ console.log(search('fury war adventure'));
 
 <br/>
 
-> Code: *in the second parameter of the search() function put the name of your attribute*
+> Code: *in the fourth parameter of the search() function put the name of the present value inside the attribute*
 ```
-console.log(search('fury war adventure', false, 'adventure'));
+console.log(search(datasetResult,'fury war adventure', false, 'adventure'));
 ```
 > Output:
 ```
@@ -312,7 +345,7 @@ Even if the first object does not have all the information you typed in, it stil
 - Then if he writes 'lords ring' in the search bar and selects 'war' in the filter the search would look something like this:
 ```
 const res = 'lords ring';
-search( res, false, 'war');
+search(datasetResult, res, false, 'war');
 ```
 - The result would be the objects searched by typing but with priorities in the filters.
 
@@ -343,12 +376,12 @@ const obj = [{
     }
 ]
 
-dataSetGenerate({
+const dataSetResult = dataSetGenerate({
     array: obj,
     attributes: ['title', 'genre']
 });
 
-console.log(search('fu'));
+console.log(search(dataSetResult, 'fu'));
 ```
 > Output:
 ```
@@ -361,7 +394,7 @@ console.log(search('fu'));
 > Code:
 ```
 setSearchDistance(0.60, 0.90);
-console.log(search('fu'));
+console.log(search(dataSetResult, 'fu'));
 ```
 > Output:
 ```
