@@ -1,4 +1,4 @@
-# **Data-search-js 1.3.8**
+# **Data-search-js 1.3.9**
 
 <img src="./icon.png" width="250">
 
