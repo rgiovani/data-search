@@ -60,23 +60,39 @@ function isString(str) {
     return false;
 }
 
+function isArrayError(array, message) {
+    if (!Array.isArray(array)) {
+        throw new IsNotArrayError(message);
+    }
+    return true;
+}
+
+function allLowerCaseInArray(array, name) {
+    for (let i = 0; i < array.length; i++) {
+        if (!isString(array[i]))
+            throw new IsNotStringError(name + '[' + i + ']');
+        else {
+            array[i] = array[i].toLowerCase();
+        }
+    }
+
+    return array;
+}
+
+
 function validateArrays(mainObj) {
     try {
         if (!Array.isArray(mainObj.array)) {
             throw new IsNotArrayError('main.array');
         }
         mainObj.attributes = (!defaultFunctions.hasAttr(mainObj, 'attributes')) ? [] : mainObj.attributes;
-        if (!Array.isArray(mainObj.attributes)) {
-            throw new IsNotArrayError('main.attribute');
-        }
+        isArrayError(mainObj.attributes, 'main.attribute');
+        mainObj.attributes = allLowerCaseInArray(mainObj.attributes, 'attributes');
 
-        for (let i = 0; i < mainObj.attributes.length; i++) {
-            if (!isString(mainObj.attributes[i]))
-                throw new IsNotStringError('attributes[' + i + ']');
-            else {
-                mainObj.attributes[i] = mainObj.attributes[i].toLowerCase();
-            }
-        }
+        mainObj.ignoreInTags = (!defaultFunctions.hasAttr(mainObj, 'ignoreInTags')) ? [] : mainObj.ignoreInTags;
+        isArrayError(mainObj.ignoreInTags, 'main.ignoreInTags');
+        mainObj.ignoreInTags = allLowerCaseInArray(mainObj.ignoreInTags, 'ignoreInTags');
+
     } catch (e) {
         if (e.type && e.description)
             console.error(`\n[${e.type}] - ${e.description}`);

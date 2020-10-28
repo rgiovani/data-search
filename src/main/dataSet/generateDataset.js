@@ -32,7 +32,7 @@ function generate(main) {
             main.array.forEach(obj => {
                 if (!obj.hasOwnProperty(main.nameId)) throw new Error(`\'${main.nameId}\' does not match the object ID field name.`);
 
-                dataset.array.push(create(obj, main.nameId, main.wordSize, main.attributes));
+                dataset.array.push(create(obj, main.nameId, main.wordSize, main.ignoreInTags, main.attributes));
             })
         }
 

@@ -1,15 +1,13 @@
 const defaultFunctions = require('../../utils/shared/functions/defaultFunctions.js');
 const validate = require('../../utils/shared/functions/validateTypes.js');
-const generate = require('../dataSet/generateDataset.js');
 
-function fillArrayOfIds(idsFounded, highestValue) {
+function fillArrayOfIds(idsFounded, highestValue, dataset) {
     if (validate.isArray(idsFounded)) {
         if (highestValue != 0) {
-            generate.dataset.array.forEach(item => {
+            dataset.forEach(item => {
                 if (item.totalSearchesFound === highestValue) {
                     idsFounded.push(item.id)
                 }
-                item.totalSearchesFound = 0;
             });
             idsFounded = defaultFunctions.removeRedundancyFromStringArray(idsFounded, 0);
             return idsFounded;
