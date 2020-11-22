@@ -15,16 +15,20 @@ function insideMainAtributes(obj, attribute, idName, size, params) {
 function mainAttributes(obj, attribute, idName, size, params) {
     params.forEach(mainAtribute => {
         if (mainAtribute == attribute.toLowerCase()) {
-            if (validate.isObject(obj[attribute])) {
-                inCreate.collection.name = mainAtribute;
-                // inCreate.setNameCollection(mainAtribute);
-                gets.getContentFromString(obj, attribute, params, idName, size)
-            } else if (validate.isArray(obj[attribute])) {
-                inCreate.collection.name = mainAtribute;
-                //inCreate.setNameCollection(mainAtribute);
-                gets.getContentFromArray(obj, attribute, params, idName, size);
-            } else if (validate.isString(obj[attribute])) {
-                gets.getContentFromString(obj, attribute, params, idName, size);
+            switch (validate.isValue(obj[attribute])) {
+                case 'object':
+                    inCreate.collection.name = mainAtribute;
+                    gets.getContentFromString(obj, attribute, params, idName, size)
+                    break;
+                case 'array':
+                    inCreate.collection.name = mainAtribute;
+                    gets.getContentFromArray(obj, attribute, params, idName, size);
+                    break;
+                case 'string':
+                    gets.getContentFromString(obj, attribute, params, idName, size);
+                    break;
+                default:
+                    break;
             }
         } else {
             insideMainAtributes(obj, attribute, idName, size, params);

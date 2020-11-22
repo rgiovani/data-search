@@ -35,7 +35,6 @@ function generate(main) {
                 dataset.array.push(create(obj, main.nameId, main.wordSize, main.ignoreInTags, main.attributes));
             })
         }
-
     } catch (e) {
         if (e.type && e.description)
             console.error(`\n[${e.type}] - ${e.description}`);

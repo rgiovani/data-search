@@ -5,6 +5,26 @@ const create = require('./create.js');
 
 let checkpoint;
 
+function switchTo(set, index, params, idName, size, setName) {
+    switch (validateTypes.isValue(set[index])) {
+        case 'object':
+            checkpoint = setName
+            getContentFromObject(set, index, params, idName, size);
+            break;
+        case 'array':
+            checkpoint = setName
+            getContentFromArray(set, index, params, idName, size)
+            break;
+        case 'string':
+            checkpoint = setName
+            getContentFromString(set, index, params, idName, size)
+            break;
+        default:
+            create.attributeBox.add(set, index);
+            break;
+    }
+}
+
 function getContentFromArray(obj, attribute, params, idName, size) {
     obj[attribute].forEach((index) => {
         if (validateTypes.isStringAndNotId(index, idName) && defaultFunctions.equalsParam(attribute, params)) {
@@ -31,22 +51,7 @@ function getContentFromObject(obj, attribute, params, idName, size) {
     if (attribute != 'id' && attribute != 'tags') {
         if (validateTypes.isObject(obj[attribute])) {
             Object.keys(obj[attribute]).forEach((index) => {
-                params.forEach(param => {
-                    if (param == index.toLowerCase()) {
-                        checkpoint = attribute;
-                        getContentFromString(obj[attribute], index, params, idName, size);
-                    } else {
-                        if (validateTypes.isObject(obj[attribute][index])) {
-                            checkpoint = attribute;
-                            getContentFromObject(obj[attribute], index, params, idName, size);
-                        } else if (validateTypes.isArray(obj[attribute][index])) {
-                            checkpoint = attribute;
-                            getContentFromArray(obj[attribute], index, params, idName, size)
-                        } else {
-                            create.attributeBox.add(obj[attribute], index);
-                        }
-                    }
-                })
+                switchTo(obj[attribute], index, params, idName, size, attribute);
             });
         }
         return obj[attribute];
@@ -62,16 +67,10 @@ function getContentFromString(obj, attribute, params, idName, size) {
                     tags.identifyTags(params, attribute, obj, size, idName);
                 break;
             case 'object':
-                if (validateTypes.isObject(obj[attribute])) {
-                    getContentFromObject(obj, attribute, params, idName, size);
-                } else if (validateTypes.isArray(obj[attribute])) {
-                    getContentFromArray(obj, attribute, params, idName, size);
-                }
+                switchTo(obj, attribute, params, idName, size, attribute);
                 break;
-
         }
     }
-
     create.attributeBox.add(obj, attribute);
 
     return obj[attribute];

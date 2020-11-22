@@ -15,6 +15,7 @@ let highestValue = 0;
 
 
 function doSearch(dataset, all, field, filterByValue) {
+    field = defaultFunctions.removeSpecialCharacterInString(field);
     let res = [];
     mainInfoFromObject = [];
     similarsWords = [];
@@ -24,6 +25,7 @@ function doSearch(dataset, all, field, filterByValue) {
     highestValue = 0;
 
     const arrayInput = defaultFunctions.treatString(field + ' ' + filterByValue, true);
+
     dataset.forEach(object => {
         similarsWords = similar.findSimilarMatches(arrayInput, object.tags);
         if (similarsWords[0]) {
@@ -72,21 +74,16 @@ function findLatestSearchedIds() {
 }
 
 function createCopyFromArray(array, notfound) {
-    const res = {
-        message: 'OK',
-        result: []
-    };
-    if (notfound) {
-        res.message = 'NOT_FOUND'
-    }
-    const copy = [];
-    array.forEach(item => {
-        const obj = {...item };
+    const res = { message: 'OK', result: [] };
+
+    res.message = (notfound) ? 'NOT_FOUND' : res.message;
+    res.result = array.map(item => {
+        const obj = { ...item };
         delete obj.tags;
         delete obj.totalSearchesFound;
-        copy.push(obj);
-    })
-    res.result = copy;
+        return obj;
+    });
+
     return res;
 }
 

@@ -2,19 +2,15 @@ const defaultFunctions = require('../../utils/shared/functions/defaultFunctions.
 const validateTypes = require('../../utils/shared/functions/validateTypes.js');
 
 function getObjectBySimilarIds(ids, dataset) {
-    const objectsFound = [];
+    let objectsFound = [];
     if (validateTypes.isArray(ids)) {
         if (ids) {
             defaultFunctions.sortArrayOfObject(dataset, -1, 'totalSearchesFound');
-            dataset.forEach(object => {
-                ids.forEach(id => {
-                    if (object.id == id) {
-                        objectsFound.push(object);
-                    }
-                });
-                object.totalSearchesFound = 0;
+            ids.forEach(id => {
+                dataset.map(object => { object.totalSearchesFound = 0; return object })
+                    .filter(object => object.id == id)
+                    .forEach(object => objectsFound.push(object));
             });
-
         }
     }
 

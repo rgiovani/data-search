@@ -12,10 +12,9 @@ let attributeBox = {
     set items(items) {
         this._items = items;
     },
-    add: function(obj, attribute) {
-        if (validateTypes.isString(obj[attribute]) && isNaN(Number(attribute))) {
-            this._items.push(attribute);
-        }
+    add: function (obj, attribute) {
+        const isValidValue = validateTypes.isString(obj[attribute]) && isNaN(Number(attribute));
+        (isValidValue) && this._items.push(attribute);
     }
 }
 
@@ -57,18 +56,8 @@ function getTagsToIgnore() {
     return tagsToIgnore;
 }
 
-// function getNameCollection() {
-//     return collection.name;
-// }
-
-// function setNameCollection(name) {
-//     collection.name = name;
-// }
-
 module.exports.create = create;
 module.exports.tmp = tmp;
-// module.exports.getNameCollection = getNameCollection;
-// module.exports.setNameCollection = setNameCollection;
 module.exports.collection = collection;
 module.exports.attributeBox = attributeBox;
 module.exports.getTagsToIgnore = getTagsToIgnore;

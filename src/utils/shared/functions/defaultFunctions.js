@@ -14,7 +14,7 @@ function treatString(text, tokenize, size) {
         if (typeof text != 'string' && typeof tokenize != 'boolean') {
             throw new NotAllowedParameterError('text', 'string', 'boolean');
         }
-        text = removeSpecialCharactersInString(text.toLowerCase());
+        text = removeSpecialCharStringArray(text.toLowerCase());
 
         if (tokenize) {
             return removeRedundancyFromStringArray(tokenizer.tokenize(text), size);
@@ -28,7 +28,7 @@ function treatString(text, tokenize, size) {
 }
 
 /** * This function remove special characters from string*/
-function removeSpecialCharactersInString(text) {
+function removeSpecialCharStringArray(text) {
     const token = tokenizer.tokenize(text);
     token.forEach(() => {
         text = text.replace('ç', 'c').replace('ê', 'e')
@@ -36,6 +36,12 @@ function removeSpecialCharactersInString(text) {
             .replace('ã', 'a').replace('â', 'a').replace('õ', 'o');
     })
     return text;
+}
+
+function removeSpecialCharacterInString(text) {
+    return text.replace('ç', 'c').replace('ê', 'e')
+        .replace('é', 'e').replace('á', 'a')
+        .replace('ã', 'a').replace('â', 'a').replace('õ', 'o');
 }
 
 /** * This function remove duplicate words in array of strings */
@@ -146,6 +152,7 @@ module.exports.sortArrayOfObject = sortArrayOfObject;
 module.exports.makeStringSingular = makeStringSingular;
 module.exports.similarStrings = similarStrings;
 module.exports.removeRedundancyFromStringArray = removeRedundancyFromStringArray;
-module.exports.removeSpecialCharactersInString = removeSpecialCharactersInString;
+module.exports.removeSpecialCharStringArray = removeSpecialCharStringArray;
 module.exports.treatString = treatString
 module.exports.transformStringInArray = transformStringInArray;
+module.exports.removeSpecialCharacterInString = removeSpecialCharacterInString;

@@ -32,32 +32,28 @@ function objectInArrayContainsId(array) {
     }
 }
 
+function isValue(value) {
+    return (isString(value)) ? 'string'
+        : (isArray(value)) ? 'array'
+            : (isObject(value)) ? 'object'
+                : undefined;
+}
+
 function isObject(obj) {
-    if (typeof obj == 'object' && !Array.isArray(obj)) {
-        return true;
-    }
-    return false;
+    return (typeof obj == 'object' && !Array.isArray(obj)) ? true : false
 }
 
 function isArray(array) {
-    if (Array.isArray(array)) {
-        return true;
-    }
-    return false;
+    return (Array.isArray(array)) ? true : false;
 }
 
 function isStringAndNotId(field, idName) {
-    if (typeof field == 'string' && field.toLowerCase() != idName.toLowerCase()) {
-        return true;
-    }
-    return false;
+    return (typeof field == 'string' && field.toLowerCase() != idName.toLowerCase()) ? true : false
+
 }
 
 function isString(str) {
-    if (typeof str == 'string') {
-        return true;
-    }
-    return false;
+    return (typeof str == 'string') ? true : false;
 }
 
 function isArrayError(array, message) {
@@ -123,6 +119,7 @@ function initializeVariables(mainObj) {
 }
 
 module.exports.objectInArrayContainsId = objectInArrayContainsId;
+module.exports.isValue = isValue;
 module.exports.isObject = isObject;
 module.exports.isArray = isArray;
 module.exports.isStringAndNotId = isStringAndNotId;
