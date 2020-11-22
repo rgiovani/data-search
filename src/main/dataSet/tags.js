@@ -21,19 +21,17 @@ function identifyTags(params, attribute, obj, size, idName) {
         if (defaultFunctions.verifyParam(attribute, paramAtribute, inCreate.collection.name)) {
             switch (typeof obj[attribute]) {
                 case 'string':
-                    if (validateTypes.isStringAndNotId(attribute.toLowerCase(), idName.toLowerCase())) {
-                        fillTags(obj[attribute].toString(), size);
-                    }
+                    const isAttributeNotId = validateTypes.isStringAndNotId(attribute.toLowerCase(), idName.toLowerCase());
+                    (isAttributeNotId) && fillTags(obj[attribute].toString(), size);
                     break;
                 case 'object':
                     if (validateTypes.isArray(obj[attribute])) {
                         obj[attribute].forEach(item => {
-                            (validateTypes.isString(item)) ? fillTags(item.toString(), size): item;
+                            (validateTypes.isString(item)) ? fillTags(item.toString(), size) : item;
                         })
                     }
                     break;
             }
-
         }
     })
 

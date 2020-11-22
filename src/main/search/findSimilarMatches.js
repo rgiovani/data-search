@@ -56,16 +56,12 @@ function resetMaxMin() {
 
 function findSimilarMatches(input, tags) {
     if (validateTypes.isArray(input) && validateTypes.isArray(tags)) {
-        const getSimilar = [];
+        let getSimilar = [];
         input.forEach(word => {
             const matches = stringSimilarity.findBestMatch(word, tags);
-            for (const i in matches.ratings) {
-                if (matches.ratings[i].rating > distance.max) {
-                    getSimilar.push(matches.ratings[i].target);
-                } else if (matches.ratings[i].rating > (distance.max - distance.min)) {
-                    getSimilar.push(matches.ratings[i].target);
-                }
-            }
+            matches.ratings
+                .filter(item => (item.rating > distance.max) || item.rating > (distance.max - distance.min))
+                .forEach(rating => getSimilar.push(rating.target));
         });
         return getSimilar;
     }

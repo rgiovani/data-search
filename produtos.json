@@ -1,0 +1,47 @@
+    [
+        {
+            "id": 1,
+            "nome": "Maça de estoque novo",
+            "preco": 0.99
+        },
+        {
+            "id": 2,
+            "nome": "Banana de estoque novo",
+            "preco": 0.50
+        },
+        {
+            "id": 3,
+            "nome": "Pêra de estoque velho",
+            "preco": 0.75
+        },
+        {
+            "id": 4,
+            "nome": "Manga de estoque velho",
+            "preco": 0.85
+        },
+        {
+            "id": 5,
+            "nome": "Detergente estoque vencido",
+            "preco": 2.50
+        },
+        {
+            "id": 6,
+            "nome": "Chips estoque vencido",
+            "preco": 1.20
+        },
+        {
+            "id": 7,
+            "nome": "Carne estoque cheio",
+            "origem": {
+                "cidade": "maringá",
+                "compradores": [
+                    "joão",
+                    "thiago"
+                ],
+                "transportes": {
+                    "veiculo": "Carro"
+                }
+            },
+            "preco": 7.50
+        }
+    ]
